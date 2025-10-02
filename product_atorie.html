@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Товар - wвы atorie</title>
+    <link rel="stylesheet" href="style_osnova.css">
+    <link rel="stylesheet" href="product_atorie.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon_io/favicon-16x16.png">
+    <link rel="icon" type="image/png" href="images/favicon_io/favicon-32x32.png">
+    <link rel="apple-touch-icon" href="images/favicon_io/apple-touch-icon.png">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html" style="color:inherit; text-decoration:none;">wвы atorie</a>
+            </div>
+            <div class="nav-links">
+                <a href="bag.html">Корзина (<span id="cart-count">0</span>)</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="product-detail">
+            <div class="product-gallery">
+                <!-- Основное изображение -->
+                <div class="main-image-container">
+                    <img id="product-image" src="" alt="" class="main-image">
+                    <!-- Кнопки листания -->
+                    <button class="gallery-btn prev-btn" onclick="changeImage(-1)">‹</button>
+                    <button class="gallery-btn next-btn" onclick="changeImage(1)">›</button>
+                </div>
+                
+                <!-- Миниатюры -->
+                <div class="thumbnails" id="thumbnails">
+                    <!-- Миниатюры будут добавляться через JS -->
+                </div>
+            </div>
+            
+            <div class="product-info">
+                <h1 id="product-title">Название товара</h1>
+                <div class="product-price" id="product-price">0 ₽</div>
+                <p class="product-description" id="product-description">Описание товара</p>
+                
+                <div class="size-selector">
+                    <label>Размер:</label>
+                    <select id="size-select">
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                    </select>
+                </div>
+                
+                <button class="add-to-cart-btn" id="add-to-cart">Добавить в корзину</button>
+                
+                <div class="product-features">
+                    <h3>О товаре</h3>
+                    <ul id="product-features"></ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Блок с видео -->
+        <section class="video-section">
+            <h2>Смотрите как выглядит в жизни</h2>
+            <div class="video-container" id="video-container">
+                <!-- Видео будут добавляться через JS -->
+            </div>
+        </section>
+    </main>
+
+    <script src="products-data.js"></script>
+    <script src="product_atorie.js"></script>
+</body>
+</html>

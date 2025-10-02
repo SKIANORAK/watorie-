@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина - wвы atorie</title>
+    <link rel="stylesheet" href="style_osnova.css">
+
+    <link rel="icon" type="image/x-icon" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" href="favicon-32x32.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <style>
+        .order-notice {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .order-notice h3 {
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .remove-item {
+            background: transparent;
+            color: #ff4444;
+            border: 1px solid #ff4444;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+        
+        .remove-item:hover {
+            background: #ff4444;
+            color: white;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            color: #666;
+            padding: 40px;
+        }
+        
+        .delivery-note {
+            font-size: 12px;
+            color: #666;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html" style="color:inherit; text-decoration:none;">wвы atorie</a>
+            </div>
+            <div class="nav-links">
+                
+                <a href="bag.html">Корзина (<span id="cart-count">0</span>)</a>
+            </div>
+            <div id="auth-section" class="auth-section"></div>
+        </nav>
+    </header>
+
+    <div class="cart-page">
+        <h1>🛒 Корзина</h1>
+        
+        <div class="order-notice">
+            <h3>📦 Информация о заказе</h3>
+            <p>• Заказы обрабатываются вручную</p>
+            <p>• Свяжемся с вами в Telegram для уточнения деталей</p>
+            <p>• Доставка рассчитывается индивидуально</p>
+            <p>• Время ответа: 10-15 минут в рабочее время</p>
+        </div>
+        
+        <div id="cart-items"></div>
+        <div id="cart-total"></div>
+        
+        <button id="clear-cart" class="clear-cart-btn">🗑️ Очистить корзину</button>
+        
+        <form id="checkout-form">
+            <h3>Контактные данные</h3>
+            <input type="text" id="contact" placeholder="Ваш Telegram @username или телефон" required>
+            <small style="color: #666; display: block; margin-bottom: 15px;">
+                Пример: @username или +79991234567
+            </small>
+            
+            <button type="submit" class="checkout-btn">
+                📨 Оформить заказ
+            </button>
+        </form>
+    </div>
+
+    <script src="machine_bag.js"></script>
+</body>
+</html>
