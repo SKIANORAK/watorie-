@@ -6,8 +6,8 @@ const products = [
         price: 3500,
         images: [
             "jeans1.jpg",
-            "images/jeans3.jpg",
-            "images/jeans2.jpg"
+            "jeans3.jpg",
+            "jeans2.jpg"
         ],
         videos: [
             {
@@ -56,4 +56,5 @@ const products = [
         description: "Свитшот с круглой горловиной.",
         features: ["Хлопок 80%, полиэстер 20%", "Французский трикотаж"]
     }
+
 ];
