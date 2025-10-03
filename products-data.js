@@ -2,7 +2,7 @@
 const products = [
     {
         id: 1,
-        name: "wjeans",
+        name: "W-JEANS",
         price: 3500,
         images: [
             "jeans1.jpg",
@@ -19,12 +19,12 @@ const products = [
                 caption: "Детали и качество пошива"
             }
         ],
-        description: "Черное худи премиального качества с уникальным принтом.",
+        description: "покажи людям свет",
         features: ["100% хлопок", "Усиленные швы", "Свободный крой"]
     },
     {
         id: 2, 
-        name: "T-SHIRT", 
+        name: "W-SHIRT", 
         price: 1500,
         images: [
             "T-shirt1.jpg",
@@ -37,8 +37,8 @@ const products = [
                 caption: "Белая футболка - обзор"
             }
         ],
-        description: "Белая футболка классического кроя.",
-        features: ["100% хлопок", "Прямой крой"]
+        description: "футболка в стиле distressed.",
+        features: ["100% трикотаж", "Прямой крой"]
     },
     {
         id: 3,
@@ -50,11 +50,12 @@ const products = [
         videos: [
             {
                 src: "videos/crew-video1.mp4",
-                caption: "Свитшот в повседневном стиле"
+                caption: ""
             }
         ],
-        description: "Свитшот с круглой горловиной.",
-        features: ["Хлопок 80%, полиэстер 20%", "Французский трикотаж"]
+        description: "любой договорный кастом",
+        features: ["Хлопок , полиэстер ", " трикотаж"]
     }
 
 ];
+
