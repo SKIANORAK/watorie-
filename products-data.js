@@ -27,7 +27,7 @@ const products = [
         name: "W-SHIRT", 
         price: 1500,
         images: [
-            "T-shirt1.jpg",
+            "W-shirt.jpg",
             "T-shirt2.jpg",
             "T-shirt3.jpg"
         ],
@@ -58,4 +58,5 @@ const products = [
     }
 
 ];
+
 
