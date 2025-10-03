@@ -11,7 +11,7 @@ const products = [
         ],
         videos: [
             {
-                src: "videowww.mp4",
+                src: "videoww.mp4",
                 caption: "W-JEANS "
             },
             {
@@ -53,6 +53,7 @@ const products = [
     }
 
 ];
+
 
 
 
