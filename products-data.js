@@ -14,14 +14,15 @@ const products = [
         videos: [
             {
                 src: "videoww.mp4",
-                caption: "W-JEANS "
+                caption: "W-JEANS"
             },
             {
                 src: "videos/hoodie-video2.mp4", 
                 caption: "Детали и качество пошива"
             }
         ],
-        description: "покажи людям свет",
+        description: " джинсы со световозвращающей тканью, покажи людям свет",
+        characteristics: "кастомные джинсы, со светоотражающими заплатками",
         features: ["100% хлопок", "Усиленные швы", "Свободный крой"]
     },
     {
@@ -40,6 +41,7 @@ const products = [
             }
         ],
         description: "футболка в стиле distressed.",
+        characteristics: "расшитая футболка с порезами",
         features: ["100% трикотаж", "Прямой крой"]
     },
     {
@@ -49,12 +51,12 @@ const products = [
         images: [
             "shvei.jpg"
         ],
-
         description: "любой договорный кастом",
+        characteristics: "",
         features: ["Хлопок , полиэстер ", " трикотаж"]
     }
-
 ];
+
 
 
 
