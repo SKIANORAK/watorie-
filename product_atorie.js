@@ -135,10 +135,13 @@ function loadVideos() {
     
     currentProduct.videos.forEach(video => {
         const videoItem = document.createElement('div');
-        videoItem.className = 'video-item';
         
+        // Определяем класс для вертикальных/горизонтальных видео
+        const videoClass = video.isVertical ? 'video-item vertical' : 'video-item';
+        
+        videoItem.className = videoClass;
         videoItem.innerHTML = `
-            <video controls muted>
+            <video controls muted playsinline>
                 <source src="${video.src}" type="video/mp4">
                 Ваш браузер не поддерживает видео.
             </video>
@@ -204,4 +207,5 @@ document.addEventListener('DOMContentLoaded', function() {
             addToCart(productId, selectedSize);
         });
     }
+
 });
