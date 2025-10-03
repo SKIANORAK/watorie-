@@ -11,8 +11,8 @@ const products = [
         ],
         videos: [
             {
-                src: "videos/hoodie-video1.mp4",
-                caption: "BasedGod Hoodie в движении"
+                src: "",
+                caption: "W-JEANS "
             },
             {
                 src: "videos/hoodie-video2.mp4", 
@@ -28,8 +28,8 @@ const products = [
         price: 1500,
         images: [
             "W-shirt.jpg",
-            "T-shirt2.jpg",
-            "T-shirt3.jpg"
+            "W-shirt2.jpg",
+            "W-shirt3.jpg"
         ],
         videos: [
             {
@@ -45,18 +45,14 @@ const products = [
         name: "CUSTOM",
         price: "договорная",
         images: [
-            "orig.jpg"
+            "shvei.jpg"
         ],
-        videos: [
-            {
-                src: "videos/crew-video1.mp4",
-                caption: ""
-            }
-        ],
+
         description: "любой договорный кастом",
         features: ["Хлопок , полиэстер ", " трикотаж"]
     }
 
 ];
+
 
 
