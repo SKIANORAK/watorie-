@@ -33,8 +33,8 @@ const products = [
         ],
         videos: [
             {
-                src: "videos/tshirt-video1.mp4",
-                caption: "Белая футболка - обзор"
+                src: "wvideo.mp4",
+                caption: " обзор"
             }
         ],
         description: "футболка в стиле distressed.",
@@ -53,6 +53,7 @@ const products = [
     }
 
 ];
+
 
 
 
