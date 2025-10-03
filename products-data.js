@@ -7,7 +7,9 @@ const products = [
         images: [
             "jeans1.jpg",
             "jeans3.jpg",
-            "jeans2.jpg"
+            "t-shirts3.jpg",
+            "wjeans6.jpg",
+            "wjeans7.jpg"
         ],
         videos: [
             {
@@ -53,6 +55,7 @@ const products = [
     }
 
 ];
+
 
 
 
