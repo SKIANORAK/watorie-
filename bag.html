@@ -5,20 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Корзина - wвы atorie</title>
     <link rel="stylesheet" href="style_bag.css">
-
     <link rel="icon" type="image/x-icon" href="favicon-16x16.png">
     <link rel="icon" type="image/png" href="favicon-32x32.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  
 </head>
 <body>
     <header>
         <nav>
             <div class="logo">
-                <a href="index.html" style="color:inherit; text-decoration:none;">wвы atorie</a>
+                <a href="index.html" class="logo-link">wвы atorie</a>
             </div>
             <div class="nav-links">
-                
                 <a href="bag.html">Корзина (<span id="cart-count">0</span>)</a>
             </div>
             <div id="auth-section" class="auth-section"></div>
@@ -26,39 +23,47 @@
     </header>
 
     <div class="cart-page">
-        <h1> Корзина</h1>
+        <h1>Корзина</h1>
         
+        <!-- Блок с уведомлением -->
         <div class="order-notice">
-            <h3> Информация о заказе</h3>
-            <p> Заказы обрабатываются вручную</p>
-            <p> Свяжемся с вами в Telegram для уточнения деталей</p>
-            <p> Доставка рассчитывается индивидуально</p>
-            <p> Время ответа: 10-15 минут в рабочее время</p>
+            <h3>Информация о заказе</h3>
+            <p>Заказы обрабатываются вручную</p>
+            <p>Свяжемся с вами в Telegram для уточнения деталей</p>
+            <p>Доставка рассчитывается индивидуально</p>
+            <p>Время ответа: 10-15 минут в рабочее время</p>
         </div>
         
-        <div id="cart-items"></div>
-        <div id="cart-total"></div>
+        <!-- Контейнер для товаров -->
+        <div id="cart-items">
+            <!-- Товары будут добавляться динамически через JS -->
+        </div>
         
+        <!-- Блок с итоговой суммой -->
+        <div id="cart-total">
+            <!-- Сумма будет добавляться динамически -->
+        </div>
+        
+        <!-- Кнопка очистки -->
         <button id="clear-cart" class="clear-cart-btn">🗑️ Очистить корзину</button>
         
+        <!-- Форма оформления заказа -->
         <form id="checkout-form">
             <h3>Контактные данные</h3>
             <input type="text" id="contact" placeholder="Ваш Telegram @username или телефон" required>
-            <small style="color: #666; display: block; margin-bottom: 15px;">
-                Пример: @username или +79991234567
-            </small>
+            <small>Пример: @username или +79991234567</small>
             
             <button type="submit" class="checkout-btn">
-                 Оформить заказ
+                Оформить заказ
             </button>
+            
+            <!-- Примечание о доставке -->
+            <p class="delivery-note">
+                * Доставка рассчитывается индивидуально после подтверждения заказа
+            </p>
         </form>
     </div>
 
     <script src="machine_bag.js"></script>
 </body>
-
 </html>
-
-
-
-
