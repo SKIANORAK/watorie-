@@ -272,29 +272,24 @@ nav {
     background: #ccc;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .cart-page {
-        margin: 20px auto;
-        padding: 0 15px;
-    }
     
-    .order-notice {
-        margin: 15px 0;
-        padding: 12px;
-    }
-    
-    .products-grid {
-        grid-template-columns: 1fr;
-        padding: 30px 15px;
-        gap: 20px;
-    }
-    
-    .nav-links a {
-        margin-left: 15px;
-    }
-    
-    .product-image {
-        height: 300px;
-    }
+.order-notice {
+    margin: 15px 0;
+    padding: 12px;
 }
+    
+.products-grid {
+    grid-template-columns: 1fr;
+    padding: 30px 15px;
+    gap: 20px;
+}
+    
+.nav-links a {
+    margin-left: 15px;
+}
+    
+.product-image {
+     height: 300px;
+}
+
+
