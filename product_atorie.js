@@ -56,7 +56,7 @@ function loadProduct() {
         featuresList.appendChild(li);
     });
     
-    document.title = currentProduct.name + ' - wвы atorie';
+    document.title = currentProduct.name + ' - 6 months';
 }
 
 // Инициализация галереи
@@ -209,3 +209,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 });
+
