@@ -359,3 +359,12 @@ nav {
         align-self: flex-end;
     }
 }
+
+.logo-link {
+    font-family: "Monotype Corsiva", cursive;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 28px;
+    text-decoration: none;
+}
+
