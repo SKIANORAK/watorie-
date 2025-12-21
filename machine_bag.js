@@ -1,5 +1,3 @@
-
-
 // НАСТРОЙКИ TELEGRAM
 const TELEGRAM_CONFIG = {
     botToken: '7969220641:AAGCTj-G2kGav5g4QqR2yx2fV6KUpSByKWQ',
@@ -97,9 +95,9 @@ async function sendOrderToTelegram(orderData) {
     console.log('📤 Отправка заказа в Telegram...');
     console.log('Данные заказа:', orderData);
     
-    let message = `🛒 *НОВЫЙ ЗАКАЗ* 🛒\n\n`;
-    message += `📅 *Дата:* ${new Date().toLocaleString('ru-RU')}\n`;
-    message += `📞 *Контакт:* ${orderData.contact}\n\n`;
+    let message = ` *НОВЫЙ ЗАКАЗ* 🛒\n\n`;
+    message += ` *Дата:* ${new Date().toLocaleString('ru-RU')}\n`;
+    message += ` *Контакт:* ${orderData.contact}\n\n`;
     
     message += `*Состав заказа:*\n`;
     orderData.items.forEach((item, index) => {
@@ -109,9 +107,9 @@ async function sendOrderToTelegram(orderData) {
         message += `   Цена: ${item.price} ₽ × ${item.quantity} = ${item.price * item.quantity} ₽\n\n`;
     });
     
-    message += `💰 *Итого:* ${orderData.total} ₽\n`;
-    message += `🚚 *Доставка:* рассчитывается отдельно\n\n`;
-    message += `⏰ *Время заказа:* ${new Date().toLocaleTimeString('ru-RU')}`;
+    message += ` *Итого:* ${orderData.total} ₽\n`;
+    message += ` *Доставка:* рассчитывается отдельно\n\n`;
+    message += ` *Время заказа:* ${new Date().toLocaleTimeString('ru-RU')}`;
 
     console.log('Сообщение для Telegram:', message);
 
@@ -171,6 +169,17 @@ function validateForm(contact) {
     }
     
     return true;
+}
+
+// Функция для открытия/закрытия информации
+function toggleInfo() {
+    const content = document.getElementById('info-content');
+    const arrow = document.querySelector('.info-dropdown-btn .arrow');
+    
+    if (content && arrow) {
+        content.classList.toggle('show');
+        arrow.textContent = content.classList.contains('show') ? '▲' : '▼';
+    }
 }
 
 // Инициализация корзины
@@ -234,4 +243,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+    
+    // Обработчик для кнопки информации
+    const infoBtn = document.querySelector('.info-dropdown-btn');
+    if (infoBtn) {
+        infoBtn.addEventListener('click', toggleInfo);
+    }
+    
 });
