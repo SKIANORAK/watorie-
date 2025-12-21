@@ -2,15 +2,13 @@
 
 // Функции для работы с пользователем
 function getCurrentUser() {
-    return JSON.parse(localStorage.getItem('currentUser')) || null;
-}
+    return JSON.parse(localStorage.getItem('currentUser')) || null;#}
 
-function setCurrentUser(user) {
+#unction setCurrentUser(user) {
     localStorage.setItem('currentUser', JSON.stringify(user));
 }
-
 function logout() {
-    localStorage.removeItem('currentUser');
+   localStorage.removeItem('currentUser');
     updateAuthUI();
     updateCartCounter();
 }
@@ -227,4 +225,5 @@ document.addEventListener('DOMContentLoaded', function() {
     renderProducts();
     updateCartCounter();
     updateAuthUI();
+
 });
