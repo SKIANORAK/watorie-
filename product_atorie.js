@@ -2,7 +2,7 @@
 let currentProduct = null;
 let currentImageIndex = 0;
 
-// Функции для работы с корзиной (добавляем их здесь)
+// Функции для работы с корзиной
 function getCurrentUser() {
     return JSON.parse(localStorage.getItem('currentUser')) || null;
 }
@@ -152,7 +152,7 @@ function loadVideos() {
     });
 }
 
-// Функция добавления в корзину (унифицированная версия)
+// Функция добавления в корзину (ОБНОВЛЕННАЯ - с сохранением изображения)
 function addToCart(productId, size = 'M') {
     const product = products.find(p => p.id === productId);
     if (!product) {
@@ -167,11 +167,14 @@ function addToCart(productId, size = 'M') {
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
+        // Сохраняем первое изображение товара
+        const productImage = product.images ? product.images[0] : 'default.jpg';
+        
         cart.push({
             id: product.id,
             name: product.name,
             price: product.price,
-            image: product.images ? product.images[0] : product.image,
+            image: productImage, // ← ВАЖНО: сохраняем изображение
             quantity: 1,
             size: size
         });
@@ -182,7 +185,7 @@ function addToCart(productId, size = 'M') {
     updateCartCounter();
 }
 
-// Обновление счетчика корзины (унифицированная версия)
+// Обновление счетчика корзины
 function updateCartCounter() {
     const cart = getCart();
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -207,6 +210,4 @@ document.addEventListener('DOMContentLoaded', function() {
             addToCart(productId, selectedSize);
         });
     }
-
 });
-
