@@ -173,12 +173,21 @@ function validateForm(contact) {
 
 // Функция для открытия/закрытия информации
 function toggleInfo() {
+    console.log('Кнопка нажата!');
+    
     const content = document.getElementById('info-content');
     const arrow = document.querySelector('.info-dropdown-btn .arrow');
     
+    console.log('Найден content:', content);
+    console.log('Найден arrow:', arrow);
+    
     if (content && arrow) {
+        console.log('Класс content до:', content.className);
         content.classList.toggle('show');
+        console.log('Класс content после:', content.className);
+        
         arrow.textContent = content.classList.contains('show') ? '▲' : '▼';
+        console.log('Стрелка изменена на:', arrow.textContent);
     }
 }
 
@@ -251,3 +260,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
 });
+
