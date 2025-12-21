@@ -1,4 +1,4 @@
-// machine_osnova.js - УПРОЩЕННАЯ ВЕРСИЯ БЕЗ АВТОРИЗАЦИИ
+
 
 // Получение корзины (только гостевая)
 function getCart() {
@@ -91,3 +91,4 @@ document.addEventListener('DOMContentLoaded', function() {
     renderProducts();
     updateCartCounter();
 });
+
