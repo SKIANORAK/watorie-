@@ -1,0 +1,26 @@
+.logo {
+    font-family: "Monotype Corsiva", "Apple Chancery", "URW Chancery L", cursive;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.logo a {
+    font-family: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    font-size: 28px;
+    letter-spacing: 1px;
+}
+
+.nav-links a {
+    font-family: "Monotype Corsiva", cursive;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 22px;
+}
+
+#cart-count {
+    font-family: "Monotype Corsiva", cursive;
+    font-style: italic;
+    font-weight: 400;
+}
