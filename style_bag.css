@@ -360,11 +360,16 @@ nav {
     }
 }
 
-.logo-link {
-    font-family: "Monotype Corsiva", cursive;
+.logo {
+    font-family: "Monotype Corsiva", "Apple Chancery", "URW Chancery L", cursive;
     font-style: italic;
     font-weight: 400;
-    font-size: 28px;
-    text-decoration: none;
 }
 
+.logo a {
+    font-family: inherit; 
+    font-style: inherit;
+    font-weight: inherit;
+    font-size: 28px;
+    letter-spacing: 1px;
+}
