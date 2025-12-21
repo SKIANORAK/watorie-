@@ -500,5 +500,67 @@ nav {
         text-align: center;
     }
 }
+/* Философия товара */
+.product-philosophy-section {
+    margin-top: 50px;
+    padding-top: 40px;
+    border-top: 1px solid #333;
+    position: relative;
+}
+
+.product-philosophy-section h3 {
+    color: #fff;
+    margin-bottom: 25px;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: italic;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+#product-philosophy {
+    color: #ccc;
+    line-height: 1.8;
+    font-style: italic;
+    padding: 25px;
+    background: rgba(17, 17, 17, 0.8);
+    border-radius: 8px;
+    border-left: 3px solid #fff;
+    position: relative;
+    font-size: 15px;
+}
+
+#product-philosophy::before {
+    content: '"';
+    font-size: 60px;
+    color: rgba(255, 255, 255, 0.1);
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    font-family: serif;
+}
+
+#product-philosophy::after {
+    content: '"';
+    font-size: 60px;
+    color: rgba(255, 255, 255, 0.1);
+    position: absolute;
+    bottom: -30px;
+    right: 15px;
+    font-family: serif;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .product-philosophy-section {
+        margin-top: 30px;
+        padding-top: 30px;
+    }
+    
+    #product-philosophy {
+        padding: 20px;
+        font-size: 14px;
+    }
+}
 
 
