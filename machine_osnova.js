@@ -29,7 +29,7 @@ function addToCart(productId, size = 'M') {
             id: product.id,
             name: product.name,
             price: product.price,
-            image: product.images ? product.images[0] : product.image,
+            image: product.images ? product.images[0] : 'default.jpg', // Добавляем первое изображение
             quantity: 1,
             size: size
         });
@@ -39,7 +39,6 @@ function addToCart(productId, size = 'M') {
     alert('Товар "' + product.name + '" добавлен в корзину!');
     updateCartCounter();
 }
-
 // Обновление счетчика корзины
 function updateCartCounter() {
     const cart = getCart();
@@ -91,4 +90,5 @@ document.addEventListener('DOMContentLoaded', function() {
     renderProducts();
     updateCartCounter();
 });
+
 
