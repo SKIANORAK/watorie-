@@ -1,4 +1,4 @@
-// machine_bag.js - ОБНОВЛЕННАЯ ВЕРСИЯ С СИНХРОНИЗАЦИЕЙ
+
 
 // НАСТРОЙКИ TELEGRAM
 const TELEGRAM_CONFIG = {
@@ -6,47 +6,14 @@ const TELEGRAM_CONFIG = {
     chatId: '2038132122' // ЗАМЕНИТЬ на реальный Chat ID
 };
 
-console.log('=== ЗАПУСК КОРЗИНЫ ===');
-
-// Проверим ВСЕ данные в localStorage
-console.log('ВСЕ данные в localStorage:');
-for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    const value = localStorage.getItem(key);
-    console.log(`${key}:`, value);
-}
-
-// Функции для работы с пользователем
-function getCurrentUser() {
-    const user = JSON.parse(localStorage.getItem('currentUser')) || null;
-    console.log('Текущий пользователь:', user);
-    return user;
-}
-
-// Получение корзины с учетом пользователя
+// Получение корзины (только гостевая)
 function getCart() {
-    const user = getCurrentUser();
-    let cart;
-    
-    if (user) {
-        cart = JSON.parse(localStorage.getItem(`cart_${user.id}`)) || [];
-        console.log('Корзина пользователя:', cart);
-    } else {
-        cart = JSON.parse(localStorage.getItem('cart_guest')) || [];
-        console.log('Гостевая корзина:', cart);
-    }
-    
-    return cart;
+    return JSON.parse(localStorage.getItem('cart_guest')) || [];
 }
 
-// Сохранение корзины с учетом пользователя
+// Сохранение корзины (только гостевая)
 function saveCart(cart) {
-    const user = getCurrentUser();
-    if (user) {
-        localStorage.setItem(`cart_${user.id}`, JSON.stringify(cart));
-    } else {
-        localStorage.setItem('cart_guest', JSON.stringify(cart));
-    }
+    localStorage.setItem('cart_guest', JSON.stringify(cart));
 }
 
 // Обновление счетчика корзины
@@ -122,127 +89,6 @@ function clearCart() {
         renderCart();
         updateCartCounter();
         alert('Корзина очищена!');
-    }
-}
-
-// Обновление UI авторизации в корзине
-function updateAuthUI() {
-    const user = getCurrentUser();
-    const authSection = document.getElementById('auth-section');
-    
-    if (authSection) {
-        if (user) {
-            authSection.innerHTML = `
-                <div class="user-info">
-                    <span>👤 ${user.username}</span>
-                    <button onclick="logout()" class="logout-btn">Выйти</button>
-                </div>
-            `;
-        } else {
-            authSection.innerHTML = `
-                <button onclick="showAuthModal()" class="auth-btn">Войти</button>
-            `;
-        }
-    }
-}
-
-// Выход из системы
-function logout() {
-    localStorage.removeItem('currentUser');
-    updateAuthUI();
-    updateCartCounter();
-    renderCart(); // Перерисовываем корзину после выхода
-}
-
-// Модальное окно авторизации
-function showAuthModal() {
-    const modal = document.createElement('div');
-    modal.className = 'auth-modal';
-    modal.innerHTML = `
-        <div class="auth-modal-content">
-            <h3>Вход в аккаунт</h3>
-            <p>Войдите, чтобы синхронизировать корзину между устройствами</p>
-            
-            <div class="auth-options">
-                <div class="auth-option" onclick="quickLogin('user123')">
-                    <div class="auth-icon">👤</div>
-                    <div class="auth-text">
-                        <strong>Быстрый вход</strong>
-                        <span>Логин: user123</span>
-                    </div>
-                </div>
-                
-                <div class="auth-option" onclick="quickLogin('fashion_lover')">
-                    <div class="auth-icon">🛍️</div>
-                    <div class="auth-text">
-                        <strong>Быстрый вход</strong>
-                        <span>Логин: fashion_lover</span>
-                    </div>
-                </div>
-                
-                <div class="auth-option" onclick="showCustomAuth()">
-                    <div class="auth-icon">🔐</div>
-                    <div class="auth-text">
-                        <strong>Свой логин</strong>
-                        <span>Создать новый аккаунт</span>
-                    </div>
-                </div>
-            </div>
-            
-            <button onclick="closeAuthModal()" class="close-auth-btn">Закрыть</button>
-        </div>
-    `;
-    
-    document.body.appendChild(modal);
-}
-
-// Быстрый вход
-function quickLogin(username) {
-    const user = {
-        id: generateUserId(),
-        username: username,
-        loginTime: new Date().toISOString()
-    };
-    
-    // Переносим корзину гостя в корзину пользователя
-    const guestCart = JSON.parse(localStorage.getItem('cart_guest')) || [];
-    
-    localStorage.setItem('currentUser', JSON.stringify(user));
-    
-    if (guestCart.length > 0) {
-        saveCart(guestCart);
-        localStorage.removeItem('cart_guest');
-        setTimeout(() => {
-            alert('Корзина синхронизирована! Товаров: ' + guestCart.length);
-        }, 100);
-    }
-    
-    updateAuthUI();
-    closeAuthModal();
-    updateCartCounter();
-    renderCart(); // Перерисовываем корзину после входа
-}
-
-// Создание своего аккаунта
-function showCustomAuth() {
-    const username = prompt('Придумайте логин:');
-    if (username && username.length >= 3) {
-        quickLogin(username);
-    } else {
-        alert('Логин должен быть не менее 3 символов');
-    }
-}
-
-// Генерация ID пользователя
-function generateUserId() {
-    return 'user_' + Math.random().toString(36).substr(2, 9);
-}
-
-// Закрытие модального окна
-function closeAuthModal() {
-    const modal = document.querySelector('.auth-modal');
-    if (modal) {
-        modal.remove();
     }
 }
 
@@ -332,7 +178,6 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Инициализация корзины...');
     renderCart();
     updateCartCounter();
-    updateAuthUI();
     
     // Обработчик для кнопки очистки
     const clearCartBtn = document.getElementById('clear-cart');
