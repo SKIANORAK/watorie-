@@ -390,18 +390,24 @@ nav {
     transition: transform 0.3s;
 }
 
+.info-dropdown-content.show {
+    max-height: 300px !important;
+    padding: 20px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
 .info-dropdown-content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s ease;
+    transition: all 0.5s ease;
     background: #111;
     border-radius: 8px;
     margin-top: 10px;
     border: 1px solid #333;
-}
-
-.info-dropdown-content.show {
-    max-height: 300px;
+    padding: 0 20px;
+    opacity: 0;
+    visibility: hidden;
 }
 
 .order-info {
@@ -440,4 +446,5 @@ nav {
         margin-bottom: 12px;
     }
 }
+
 
