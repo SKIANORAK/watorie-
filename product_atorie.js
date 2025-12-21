@@ -40,6 +40,11 @@ function loadProduct() {
     
     console.log('Товар найден:', currentProduct.name);
     console.log('Есть ли философия?', 'philosophy' in currentProduct);
+    // Добавьте после строки 41-42:
+console.log('Философия содержимое:', philosophyText);
+console.log('Ищем элемент с селектором: [data-product-philosophy]');
+const philosophyElement = document.querySelector('[data-product-philosophy]');
+console.log('Элемент найден:', philosophyElement);
     console.log('Философия:', currentProduct.philosophy);
     
     // Заполняем страницу данными
@@ -233,5 +238,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
 
 
