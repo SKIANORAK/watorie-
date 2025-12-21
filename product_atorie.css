@@ -230,11 +230,13 @@
 }
 
 /* Вариант 1: Чистый черный с белым текстом */
+/* СТИЛИ ДЛЯ БЛОКА ФИЛОСОФИИ */
 .philosophy-container {
+    display: none; /* По умолчанию скрыт, показывается через JS */
     background: #000;
     color: #fff;
     padding: 30px;
-    margin: 40px 0;
+    margin-top: 40px;
     border-top: 1px solid #333;
     border-bottom: 1px solid #333;
 }
@@ -255,6 +257,5 @@
     font-size: 1.1em;
     color: #e0e0e0;
     font-family: 'Helvetica', Arial, sans-serif;
-}
 }
 
