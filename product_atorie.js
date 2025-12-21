@@ -29,12 +29,18 @@ function loadProduct() {
     const urlParams = new URLSearchParams(window.location.search);
     const productId = parseInt(urlParams.get('id'));
     
+    console.log('Ищем товар с ID:', productId);
     currentProduct = products.find(p => p.id === productId);
     
     if (!currentProduct) {
+        console.error('Товар не найден!');
         document.body.innerHTML = '<div style="padding:50px;text-align:center;color:white;">Товар не найден</div>';
         return;
     }
+    
+    console.log('Товар найден:', currentProduct.name);
+    console.log('Есть ли философия?', 'philosophy' in currentProduct);
+    console.log('Философия:', currentProduct.philosophy);
     
     // Заполняем страницу данными
     document.getElementById('product-title').textContent = currentProduct.name;
@@ -47,7 +53,7 @@ function loadProduct() {
     // Загружаем видео
     loadVideos();
     
-// Заполняем характеристики
+    // Заполняем характеристики
     const featuresList = document.getElementById('product-features');
     featuresList.innerHTML = '';
     currentProduct.features.forEach(feature => {
@@ -58,11 +64,19 @@ function loadProduct() {
     
     // Философия
     const philosophyElement = document.getElementById('product-philosophy');
+    console.log('Элемент философии найден?', philosophyElement);
+    
     if (philosophyElement && currentProduct.philosophy) {
-        console.log('Философия найдена:', currentProduct.philosophy);
+        console.log('Заполняем философию...');
         philosophyElement.innerHTML = currentProduct.philosophy;
+        philosophyElement.style.color = 'red'; // Для видимости
+        philosophyElement.style.fontSize = '20px';
     } else {
-        console.log('Философия не найдена или элемент отсутствует');
+        console.log('Проблема:', {
+            'philosophyElement': !!philosophyElement,
+            'hasPhilosophy': !!currentProduct.philosophy,
+            'currentProduct': currentProduct
+        });
     }
     
     document.title = currentProduct.name + ' - 6 months';
@@ -219,4 +233,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
 
