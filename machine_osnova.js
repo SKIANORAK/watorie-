@@ -1,36 +1,13 @@
-// machine_osnova.js - ТОЛЬКО ЛОГИКА
+// machine_osnova.js - УПРОЩЕННАЯ ВЕРСИЯ БЕЗ АВТОРИЗАЦИИ
 
-// Функции для работы с пользователем
-function getCurrentUser() {
-    return JSON.parse(localStorage.getItem('currentUser')) || null;
-}
-
-function setCurrentUser(user) {
-    localStorage.setItem('currentUser', JSON.stringify(user));
-}
-function logout() {
-    localStorage.removeItem('currentUser');
-     updateAuthUI();
-     updateCartCounter();
-}
-
-// Получение корзины с учетом пользователя
+// Получение корзины (только гостевая)
 function getCart() {
-    const user = getCurrentUser();
-    if (user) {
-        return JSON.parse(localStorage.getItem(`cart_${user.id}`)) || [];
-    }
     return JSON.parse(localStorage.getItem('cart_guest')) || [];
 }
 
-// Сохранение корзины с учетом пользователя
+// Сохранение корзины (только гостевая)
 function saveCart(cart) {
-    const user = getCurrentUser();
-    if (user) {
-        localStorage.setItem(`cart_${user.id}`, JSON.stringify(cart));
-    } else {
-        localStorage.setItem('cart_guest', JSON.stringify(cart));
-    }
+    localStorage.setItem('cart_guest', JSON.stringify(cart));
 }
 
 // Функция добавления в корзину
@@ -74,118 +51,6 @@ function updateCartCounter() {
     }
 }
 
-// Обновление UI авторизации
-function updateAuthUI() {
-    const user = getCurrentUser();
-    const authSection = document.getElementById('auth-section');
-    
-    if (authSection) {
-        if (user) {
-            authSection.innerHTML = `
-                <div class="user-info">
-                    <span>👤 ${user.username}</span>
-                    <button onclick="logout()" class="logout-btn">Выйти</button>
-                </div>
-            `;
-        } else {
-            authSection.innerHTML = `
-                <button onclick="showAuthModal()" class="auth-btn">Войти</button>
-            `;
-        }
-    }
-}
-
-// Модальное окно авторизации
-function showAuthModal() {
-    const modal = document.createElement('div');
-    modal.className = 'auth-modal';
-    modal.innerHTML = `
-        <div class="auth-modal-content">
-            <h3>Вход в аккаунт</h3>
-            <p>Войдите, чтобы синхронизировать корзину между устройствами</p>
-            
-            <div class="auth-options">
-                <div class="auth-option" onclick="quickLogin('user123')">
-                    <div class="auth-icon">👤</div>
-                    <div class="auth-text">
-                        <strong>Быстрый вход</strong>
-                        <span>Логин: user123</span>
-                    </div>
-                </div>
-                
-                <div class="auth-option" onclick="quickLogin('fashion_lover')">
-                    <div class="auth-icon">🛍️</div>
-                    <div class="auth-text">
-                        <strong>Быстрый вход</strong>
-                        <span>Логин: fashion_lover</span>
-                    </div>
-                </div>
-                
-                <div class="auth-option" onclick="showCustomAuth()">
-                    <div class="auth-icon">🔐</div>
-                    <div class="auth-text">
-                        <strong>Свой логин</strong>
-                        <span>Создать новый аккаунт</span>
-                    </div>
-                </div>
-            </div>
-            
-            <button onclick="closeAuthModal()" class="close-auth-btn">Закрыть</button>
-        </div>
-    `;
-    
-    document.body.appendChild(modal);
-}
-
-// Быстрый вход
-function quickLogin(username) {
-    const user = {
-        id: generateUserId(),
-        username: username,
-        loginTime: new Date().toISOString()
-    };
-    
-    // Переносим корзину гостя в корзину пользователя
-    const guestCart = JSON.parse(localStorage.getItem('cart_guest')) || [];
-    
-    setCurrentUser(user);
-    
-    if (guestCart.length > 0) {
-        saveCart(guestCart);
-        localStorage.removeItem('cart_guest');
-        setTimeout(() => {
-            alert('Корзина синхронизирована! Товаров: ' + guestCart.length);
-        }, 100);
-    }
-    
-    updateAuthUI();
-    closeAuthModal();
-    updateCartCounter();
-}
-
-// Создание своего аккаунта
-function showCustomAuth() {
-    const username = prompt('Придумайте логин:');
-    if (username && username.length >= 3) {
-        quickLogin(username);
-    } else {
-        alert('Логин должен быть не менее 3 символов');
-    }
-}
-
-// Генерация ID пользователя
-function generateUserId() {
-    return 'user_' + Math.random().toString(36).substr(2, 9);
-}
-
-// Закрытие модального окна
-function closeAuthModal() {
-    const modal = document.querySelector('.auth-modal');
-    if (modal) {
-        modal.remove();
-    }
-}
-
 // Создание карточек товаров
 function renderProducts() {
     const grid = document.querySelector('.products-grid');
@@ -205,7 +70,7 @@ function renderProducts() {
                 <a href="product_atorie.html?id=${product.id}" class="product-link">
                     <div class="product-image">
                         <img src="${productImage}" alt="${product.name}" 
-                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMjIyIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPuKEoiBJbWFnZTwvdGV4dD48L3N2Zz4='"
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMjIyIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPuKEoiBJbWFnZTwvdGV4dD48L3N2Zz4='" 
                              style="width:100%;height:100%;object-fit:cover;">
                     </div>
                     <div class="product-title">${product.name}</div>
@@ -225,8 +90,4 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Инициализация главной страницы...');
     renderProducts();
     updateCartCounter();
-    updateAuthUI();
-
 });
-
-
