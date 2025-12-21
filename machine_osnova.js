@@ -2,9 +2,10 @@
 
 // Функции для работы с пользователем
 function getCurrentUser() {
-    return JSON.parse(localStorage.getItem('currentUser')) || null;#}
+    return JSON.parse(localStorage.getItem('currentUser')) || null;
+}
 
-#unction setCurrentUser(user) {
+function setCurrentUser(user) {
     localStorage.setItem('currentUser', JSON.stringify(user));
 }
 function logout() {
@@ -227,3 +228,4 @@ document.addEventListener('DOMContentLoaded', function() {
     updateAuthUI();
 
 });
+
