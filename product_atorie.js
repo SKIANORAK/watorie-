@@ -2,7 +2,7 @@
 let currentProduct = null;
 let currentImageIndex = 0;
 
-// ========== ФУНКЦИИ ДЛЯ РАБОТЫ С КОРЗИНОЙ ==========
+// ФУНКЦИИ ДЛЯ РАБОТЫ С КОРЗИНОЙ
 function getCurrentUser() {
     return JSON.parse(localStorage.getItem('currentUser')) || null;
 }
@@ -24,34 +24,34 @@ function saveCart(cart) {
     }
 }
 
-// ========== ОСНОВНАЯ ФУНКЦИЯ ЗАГРУЗКИ ТОВАРА ==========
+// ОСНОВНАЯ ФУНКЦИЯ ЗАГРУЗКИ ТОВАРА
 function loadProduct() {
-    console.log('=== НАЧАЛО ЗАГРУЗКИ ТОВАРА ===');
+    console.log('--- НАЧАЛО ЗАГРУЗКИ ТОВАРА ---');
     
     const urlParams = new URLSearchParams(window.location.search);
     const productId = parseInt(urlParams.get('id'));
     
-    console.log('📦 Ищем товар с ID:', productId);
-    console.log('📋 Всего товаров в базе:', products.length);
+    console.log('Ищем товар с ID:', productId);
+    console.log('Всего товаров в базе:', products.length);
     
     currentProduct = products.find(p => p.id === productId);
     
     if (!currentProduct) {
-        console.error('❌ Товар не найден!');
+        console.error('Товар не найден!');
         document.body.innerHTML = '<div style="padding:50px;text-align:center;color:white;">Товар не найден</div>';
         return;
     }
     
-    console.log('✅ Товар найден:', currentProduct.name);
-    console.log('💰 Цена:', currentProduct.price);
-    console.log('🖼️ Изображений:', currentProduct.images?.length || 0);
-    console.log('📹 Видео:', currentProduct.videos?.length || 0);
-    console.log('📝 Есть ли философия?', 'philosophy' in currentProduct);
+    console.log('Товар найден:', currentProduct.name);
+    console.log('Цена:', currentProduct.price);
+    console.log('Изображений:', currentProduct.images?.length || 0);
+    console.log('Видео:', currentProduct.videos?.length || 0);
+    console.log('Есть ли философия?', 'philosophy' in currentProduct);
     
     if (currentProduct.philosophy) {
-        console.log('📖 Философия содержимое:', currentProduct.philosophy);
+        console.log('Философия содержимое:', currentProduct.philosophy);
     } else {
-        console.log('📭 Философии нет в данных');
+        console.log('Философии нет в данных');
     }
     
     // Заполняем основную информацию
@@ -74,48 +74,48 @@ function loadProduct() {
         featuresList.appendChild(li);
     });
     
-    // ========== РАБОТА С ФИЛОСОФИЕЙ ==========
+    // РАБОТА С ФИЛОСОФИЕЙ
     const philosophyElement = document.getElementById('product-philosophy');
     const philosophyContainer = document.getElementById('philosophy-container');
     
-    console.log('🔍 Поиск элемента философии...');
-    console.log('📌 Элемент product-philosophy найден?', !!philosophyElement);
-    console.log('📌 Контейнер философии найден?', !!philosophyContainer);
-    console.log('💾 Данные философии есть?', !!currentProduct.philosophy);
+    console.log('Поиск элемента философии...');
+    console.log('Элемент product-philosophy найден?', !!philosophyElement);
+    console.log('Контейнер философии найден?', !!philosophyContainer);
+    console.log('Данные философии есть?', !!currentProduct.philosophy);
     
     if (philosophyElement && currentProduct.philosophy) {
-        console.log('🎯 ЗАПОЛНЯЕМ ФИЛОСОФИЮ!');
+        console.log('ЗАПОЛНЯЕМ ФИЛОСОФИЮ!');
         philosophyElement.innerHTML = currentProduct.philosophy;
         
         // Показываем контейнер
         if (philosophyContainer) {
             philosophyContainer.style.display = 'block';
-            console.log('✅ Контейнер философии показан');
+            console.log('Контейнер философии показан');
         }
         
-        // Визуальная индикация (можно убрать после теста)
-        philosophyElement.style.border = '2px solid #4CAF50';
-        philosophyElement.style.padding = '10px';
-        philosophyElement.style.backgroundColor = '#f1f8e9';
+        // Убираем тестовые стили (оставляем только CSS стили)
+        philosophyElement.style.border = '';
+        philosophyElement.style.padding = '';
+        philosophyElement.style.backgroundColor = '';
         
     } else {
-        console.log('⚠️ Проблема с философией:');
+        console.log('Проблема с философией:');
         console.log('- philosophyElement:', philosophyElement);
         console.log('- hasPhilosophy:', !!currentProduct.philosophy);
         
         // Скрываем контейнер, если философии нет
         if (philosophyContainer) {
             philosophyContainer.style.display = 'none';
-            console.log('❌ Контейнер философии скрыт');
+            console.log('Контейнер философии скрыт');
         }
     }
     
     // Обновляем заголовок страницы
     document.title = currentProduct.name + ' - 6 months';
-    console.log('✅ Страница загружена успешно!');
+    console.log('Страница загружена успешно!');
 }
 
-// ========== ФУНКЦИИ ГАЛЕРЕИ ==========
+// ФУНКЦИИ ГАЛЕРЕИ
 function initGallery() {
     if (!currentProduct.images || currentProduct.images.length === 0) return;
     
@@ -173,7 +173,7 @@ function updateActiveThumbnail() {
     });
 }
 
-// ========== ФУНКЦИИ ВИДЕО ==========
+// ФУНКЦИИ ВИДЕО
 function loadVideos() {
     const videoContainer = document.getElementById('video-container');
     if (!videoContainer) return;
@@ -202,11 +202,11 @@ function loadVideos() {
     });
 }
 
-// ========== ФУНКЦИИ КОРЗИНЫ ==========
+// ФУНКЦИИ КОРЗИНЫ
 function addToCart(productId, size = 'M') {
     const product = products.find(p => p.id === productId);
     if (!product) {
-        console.error('❌ Товар не найден:', productId);
+        console.error('Товар не найден:', productId);
         alert('Ошибка: товар не найден');
         return;
     }
@@ -232,8 +232,8 @@ function addToCart(productId, size = 'M') {
     }
     
     saveCart(cart);
-    console.log('🛒 Товар добавлен:', product.name);
-    alert('✅ Товар "' + product.name + '" добавлен в корзину!');
+    console.log('Товар добавлен:', product.name);
+    alert('Товар "' + product.name + '" добавлен в корзину!');
     updateCartCounter();
 }
 
@@ -247,13 +247,13 @@ function updateCartCounter() {
     }
 }
 
-// ========== ИНИЦИАЛИЗАЦИЯ ==========
+// ИНИЦИАЛИЗАЦИЯ
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 DOM полностью загружен');
+    console.log('DOM полностью загружен');
     
     // Проверяем наличие необходимых элементов
     if (!document.getElementById('product-philosophy')) {
-        console.error('❌ Элемент product-philosophy не найден в DOM!');
+        console.error('Элемент product-philosophy не найден в DOM!');
     }
     
     // Загружаем товар
@@ -274,6 +274,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Отладочная информация
-    console.log('🎬 Инициализация завершена');
-    console.log('📍 Текущий URL:', window.location.href);
+    console.log('Инициализация завершена');
+    console.log('Текущий URL:', window.location.href);
 });
