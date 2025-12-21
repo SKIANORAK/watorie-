@@ -52,7 +52,16 @@ function renderCart() {
         
         const itemEl = document.createElement('div');
         itemEl.className = 'cart-item';
+        
+        // Добавляем миниатюру
+        const productImage = item.image || 'default-image.jpg';
+        
         itemEl.innerHTML = `
+            <div class="cart-item-image">
+                <img src="${productImage}" alt="${item.name}" 
+                     onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iIzIyMiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj7ihKIgSW1hZ2U8L3RleHQ+PC9zdmc+'" 
+                     style="width:60px;height:60px;object-fit:cover;border-radius:4px;">
+            </div>
             <div class="cart-item-info">
                 <h3>${item.name}</h3>
                 <p>${item.price} ₽ × ${item.quantity}</p>
@@ -252,5 +261,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
 });
+
 
 
