@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Корзина - 6 months</title>
+    <link rel="stylesheet" href="style_osnova.css">
     <link rel="stylesheet" href="style_bag.css">
-    <link rel="stylesheet" href="style_fonts.css">
     <link rel="icon" type="image/x-icon" href="favicon-16x16.png">
     <link rel="icon" type="image/png" href="favicon-32x32.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -19,25 +19,15 @@
             <div class="nav-links">
                 <a href="bag.html">Корзина (<span id="cart-count">0</span>)</a>
             </div>
-            <!-- УБРАЛИ: <div id="auth-section" class="auth-section"></div> -->
         </nav>
     </header>
 
     <div class="cart-page">
         <h1>Корзина</h1>
         
-        <!-- Блок с уведомлением -->
-        <div class="order-notice">
-            <h3>Информация о заказе</h3>
-            <p>Заказы обрабатываются вручную</p>
-            <p>Свяжемся с вами в Telegram для уточнения деталей</p>
-            <p>Доставка рассчитывается индивидуально</p>
-            <p>Время ответа: 10-15 минут в рабочее время</p>
-        </div>
-        
         <!-- Контейнер для товаров -->
         <div id="cart-items">
-            <!-- Товары будут добавляться динамически через JS -->
+            <!-- Товары будут добавляться динамически -->
         </div>
         
         <!-- Блок с итоговой суммой -->
@@ -57,16 +47,27 @@
             <button type="submit" class="checkout-btn">
                 Оформить заказ
             </button>
-            
-            <!-- Примечание о доставке -->
-            <p class="delivery-note">
-                * Доставка рассчитывается индивидуально после подтверждения заказа
-            </p>
         </form>
+        
+        <!-- Выпадающий блок информации -->
+        <div class="info-dropdown">
+            <button class="info-dropdown-btn" onclick="toggleInfo()">
+                <span>Информация о заказе</span>
+                <span class="arrow">▼</span>
+            </button>
+            
+            <div class="info-dropdown-content" id="info-content">
+                <div class="order-info">
+                    <p>Заказы обрабатываются вручную</p>
+                    <p>Свяжемся с вами в Telegram для уточнения деталей</p>
+                    <p>Доставка рассчитывается индивидуально</p>
+                    <p>Время ответа: 10-15 минут в рабочее время</p>
+                    <p>Для связи: @SKIANORAK</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="machine_bag.js"></script>
 </body>
 </html>
-
-
