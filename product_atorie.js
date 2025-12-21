@@ -47,7 +47,7 @@ function loadProduct() {
     // Загружаем видео
     loadVideos();
     
-    // Заполняем характеристики
+// Заполняем характеристики
     const featuresList = document.getElementById('product-features');
     featuresList.innerHTML = '';
     currentProduct.features.forEach(feature => {
@@ -56,9 +56,17 @@ function loadProduct() {
         featuresList.appendChild(li);
     });
     
+    // Философия
+    const philosophyElement = document.getElementById('product-philosophy');
+    if (philosophyElement && currentProduct.philosophy) {
+        console.log('Философия найдена:', currentProduct.philosophy);
+        philosophyElement.innerHTML = currentProduct.philosophy;
+    } else {
+        console.log('Философия не найдена или элемент отсутствует');
+    }
+    
     document.title = currentProduct.name + ' - 6 months';
 }
-
 // Инициализация галереи
 function initGallery() {
     if (!currentProduct.images || currentProduct.images.length === 0) return;
@@ -211,3 +219,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
