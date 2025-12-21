@@ -9,9 +9,9 @@ function setCurrentUser(user) {
     localStorage.setItem('currentUser', JSON.stringify(user));
 }
 function logout() {
-   localStorage.removeItem('currentUser');
-    updateAuthUI();
-    updateCartCounter();
+    localStorage.removeItem('currentUser');
+     updateAuthUI();
+     updateCartCounter();
 }
 
 // Получение корзины с учетом пользователя
@@ -228,4 +228,5 @@ document.addEventListener('DOMContentLoaded', function() {
     updateAuthUI();
 
 });
+
 
