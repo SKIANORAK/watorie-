@@ -106,10 +106,30 @@ nav {
     color: #fff;
 }
 
+/* МЕТА-ИНФОРМАЦИЯ ТОВАРА В ОДНУ СТРОКУ */
+.item-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0 12px;
+    flex-wrap: wrap;
+}
+
 .item-size {
     color: #888;
     font-size: 12px;
+}
+
+.item-separator {
+    color: #555;
+    font-size: 10px;
+}
+
+.item-philosophy {
+    color: #666;
+    font-size: 11px;
     font-style: italic;
+    max-width: 150px;
 }
 
 /* КОНТРОЛЫ КОЛИЧЕСТВА (ВСЕГДА ВИДНЫ) */
@@ -342,6 +362,7 @@ nav {
         align-self: flex-start;
     }
 }
+
 
 
 
