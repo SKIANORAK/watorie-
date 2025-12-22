@@ -259,8 +259,6 @@ nav {
 /* ВЫПАДАЮЩИЙ БЛОК ИНФОРМАЦИИ */
 .info-dropdown {
     margin-top: 40px;
-    padding-top: 20px;
-    border-top: none;
 
 .info-dropdown-btn {
     background: none;
@@ -344,5 +342,6 @@ nav {
         align-self: flex-start;
     }
 }
+
 
 
