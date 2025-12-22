@@ -258,7 +258,7 @@ nav {
 .info-dropdown {
     margin-top: 40px;
     padding-top: 20px;
-    border-top: 1px solid #333;
+   
 }
 
 .info-dropdown-btn {
@@ -292,7 +292,7 @@ nav {
     background: #111;
     border-radius: 8px;
     margin-top: 10px;
-    border: 1px solid #333;
+    
 }
 
 .info-dropdown-content.show {
@@ -366,3 +366,4 @@ nav {
     opacity: 1;
     transform: translateY(0);
 }
+
