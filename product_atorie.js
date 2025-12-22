@@ -2,7 +2,7 @@
 let currentProduct = null;
 let currentImageIndex = 0;
 
-// ФУНКЦИИ ДЛЯ РАБОТЫ С КОРЗИНОЙ
+// Функции для работы с корзиной
 function getCurrentUser() {
     return JSON.parse(localStorage.getItem('currentUser')) || null;
 }
@@ -24,37 +24,43 @@ function saveCart(cart) {
     }
 }
 
-// ОСНОВНАЯ ФУНКЦИЯ ЗАГРУЗКИ ТОВАРА
-function loadProduct() {
-    console.log('--- НАЧАЛО ЗАГРУЗКИ ТОВАРА ---');
+// Кастомное уведомление
+function showCustomAlert(message) {
+    let alert = document.getElementById('custom-alert');
+    if (!alert) {
+        alert = document.createElement('div');
+        alert.id = 'custom-alert';
+        alert.className = 'custom-alert';
+        alert.innerHTML = `
+            <div class="alert-content">
+                <span class="alert-text">${message}</span>
+            </div>
+        `;
+        document.body.appendChild(alert);
+    } else {
+        document.querySelector('.alert-text').textContent = message;
+    }
     
+    alert.classList.add('show');
+    
+    setTimeout(() => {
+        alert.classList.remove('show');
+    }, 2000);
+}
+
+// Загрузка данных товара
+function loadProduct() {
     const urlParams = new URLSearchParams(window.location.search);
     const productId = parseInt(urlParams.get('id'));
-    
-    console.log('Ищем товар с ID:', productId);
-    console.log('Всего товаров в базе:', products.length);
     
     currentProduct = products.find(p => p.id === productId);
     
     if (!currentProduct) {
-        console.error('Товар не найден!');
         document.body.innerHTML = '<div style="padding:50px;text-align:center;color:white;">Товар не найден</div>';
         return;
     }
     
-    console.log('Товар найден:', currentProduct.name);
-    console.log('Цена:', currentProduct.price);
-    console.log('Изображений:', currentProduct.images?.length || 0);
-    console.log('Видео:', currentProduct.videos?.length || 0);
-    console.log('Есть ли философия?', 'philosophy' in currentProduct);
-    
-    if (currentProduct.philosophy) {
-        console.log('Философия содержимое:', currentProduct.philosophy);
-    } else {
-        console.log('Философии нет в данных');
-    }
-    
-    // Заполняем основную информацию
+    // Заполняем страницу данными
     document.getElementById('product-title').textContent = currentProduct.name;
     document.getElementById('product-price').textContent = currentProduct.price + ' ₽';
     document.getElementById('product-description').textContent = currentProduct.description;
@@ -74,84 +80,56 @@ function loadProduct() {
         featuresList.appendChild(li);
     });
     
-    // РАБОТА С ФИЛОСОФИЕЙ
+    // Философия
     const philosophyElement = document.getElementById('product-philosophy');
-    const philosophyContainer = document.getElementById('philosophy-container');
-    
-    console.log('Поиск элемента философии...');
-    console.log('Элемент product-philosophy найден?', !!philosophyElement);
-    console.log('Контейнер философии найден?', !!philosophyContainer);
-    console.log('Данные философии есть?', !!currentProduct.philosophy);
-    
     if (philosophyElement && currentProduct.philosophy) {
-        console.log('ЗАПОЛНЯЕМ ФИЛОСОФИЮ!');
         philosophyElement.innerHTML = currentProduct.philosophy;
-        
-        // Показываем контейнер
-        if (philosophyContainer) {
-            philosophyContainer.style.display = 'block';
-            console.log('Контейнер философии показан');
-        }
-        
-        // Убираем тестовые стили (оставляем только CSS стили)
-        philosophyElement.style.border = '';
-        philosophyElement.style.padding = '';
-        philosophyElement.style.backgroundColor = '';
-        
-    } else {
-        console.log('Проблема с философией:');
-        console.log('- philosophyElement:', philosophyElement);
-        console.log('- hasPhilosophy:', !!currentProduct.philosophy);
-        
-        // Скрываем контейнер, если философии нет
-        if (philosophyContainer) {
-            philosophyContainer.style.display = 'none';
-            console.log('Контейнер философии скрыт');
-        }
     }
     
-    // Обновляем заголовок страницы
     document.title = currentProduct.name + ' - 6 months';
-    console.log('Страница загружена успешно!');
 }
 
-// ФУНКЦИИ ГАЛЕРЕИ
+// Инициализация галереи
 function initGallery() {
     if (!currentProduct.images || currentProduct.images.length === 0) return;
     
+    // Показываем первую картинку
     showImage(0);
+    
+    // Создаем миниатюры
     createThumbnails();
 }
 
+// Показать изображение по индексу
 function showImage(index) {
-    if (!currentProduct.images || !currentProduct.images[index]) return;
+    if (!currentProduct.images[index]) return;
     
     const productImage = document.getElementById('product-image');
     productImage.src = currentProduct.images[index];
     productImage.alt = currentProduct.name + ' - фото ' + (index + 1);
     
     currentImageIndex = index;
+    
+    // Обновляем активную миниатюру
     updateActiveThumbnail();
 }
 
+// Смена изображения
 function changeImage(direction) {
-    if (!currentProduct.images) return;
-    
     const newIndex = currentImageIndex + direction;
     
     if (newIndex >= 0 && newIndex < currentProduct.images.length) {
         showImage(newIndex);
     } else if (newIndex < 0) {
-        showImage(currentProduct.images.length - 1);
+        showImage(currentProduct.images.length - 1); // Последняя картинка
     } else {
-        showImage(0);
+        showImage(0); // Первая картинка
     }
 }
 
+// Создание миниатюр
 function createThumbnails() {
     const thumbnailsContainer = document.getElementById('thumbnails');
-    if (!thumbnailsContainer || !currentProduct.images) return;
-    
     thumbnailsContainer.innerHTML = '';
     
     currentProduct.images.forEach((image, index) => {
@@ -166,6 +144,7 @@ function createThumbnails() {
     });
 }
 
+// Обновление активной миниатюры
 function updateActiveThumbnail() {
     const thumbnails = document.querySelectorAll('.thumbnail');
     thumbnails.forEach((thumb, index) => {
@@ -173,13 +152,12 @@ function updateActiveThumbnail() {
     });
 }
 
-// ФУНКЦИИ ВИДЕО
+// Загрузка видео
 function loadVideos() {
     const videoContainer = document.getElementById('video-container');
-    if (!videoContainer) return;
     
     if (!currentProduct.videos || currentProduct.videos.length === 0) {
-        videoContainer.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Видео скоро появятся</p>';
+        videoContainer.innerHTML = '<p style="text-align:center;color:#666;">Видео скоро появятся</p>';
         return;
     }
     
@@ -187,6 +165,8 @@ function loadVideos() {
     
     currentProduct.videos.forEach(video => {
         const videoItem = document.createElement('div');
+        
+        // Определяем класс для вертикальных/горизонтальных видео
         const videoClass = video.isVertical ? 'video-item vertical' : 'video-item';
         
         videoItem.className = videoClass;
@@ -202,41 +182,43 @@ function loadVideos() {
     });
 }
 
-// ФУНКЦИИ КОРЗИНЫ
+// Функция добавления в корзину (с кастомным уведомлением)
 function addToCart(productId, size = 'M') {
     const product = products.find(p => p.id === productId);
     if (!product) {
         console.error('Товар не найден:', productId);
-        alert('Ошибка: товар не найден');
         return;
     }
     
     let cart = getCart();
+    
     const existingItem = cart.find(item => item.id === productId && item.size === size);
     
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
-        const productImage = product.images && product.images.length > 0 
-            ? product.images[0] 
-            : 'images/default-product.jpg';
+        // Сохраняем первое изображение товара
+        const productImage = product.images ? product.images[0] : 'default.jpg';
         
         cart.push({
             id: product.id,
             name: product.name,
             price: product.price,
-            image: productImage,
+            image: productImage, // ← ВАЖНО: сохраняем изображение
             quantity: 1,
             size: size
         });
     }
     
     saveCart(cart);
-    console.log('Товар добавлен:', product.name);
-    alert('Товар "' + product.name + '" добавлен в корзину!');
+    
+    // КАСТОМНОЕ УВЕДОМЛЕНИЕ
+    showCustomAlert('Товар "' + product.name + '" добавлен в корзину!');
+    
     updateCartCounter();
 }
 
+// Обновление счетчика корзины
 function updateCartCounter() {
     const cart = getCart();
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -247,22 +229,11 @@ function updateCartCounter() {
     }
 }
 
-// ИНИЦИАЛИЗАЦИЯ
+// Инициализация
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM полностью загружен');
-    
-    // Проверяем наличие необходимых элементов
-    if (!document.getElementById('product-philosophy')) {
-        console.error('Элемент product-philosophy не найден в DOM!');
-    }
-    
-    // Загружаем товар
     loadProduct();
-    
-    // Обновляем счетчик корзины
     updateCartCounter();
     
-    // Назначаем обработчик кнопки "Добавить в корзину"
     const addToCartBtn = document.getElementById('add-to-cart');
     if (addToCartBtn) {
         addToCartBtn.addEventListener('click', function() {
@@ -272,8 +243,4 @@ document.addEventListener('DOMContentLoaded', function() {
             addToCart(productId, selectedSize);
         });
     }
-    
-    // Отладочная информация
-    console.log('Инициализация завершена');
-    console.log('Текущий URL:', window.location.href);
 });
