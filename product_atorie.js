@@ -89,12 +89,46 @@ function loadProduct() {
     document.title = currentProduct.name + ' - 6 months';
 }
 
-// Инициализация галереи
+// Инициализация галереи (теперь с видео)
 function initGallery() {
-    if (!currentProduct.images || currentProduct.images.length === 0) return;
+    if (!currentProduct) return;
     
-    // Показываем первую картинку
-    showImage(0);
+    const allMedia = [];
+    
+    // Добавляем все изображения
+    if (currentProduct.images && currentProduct.images.length > 0) {
+        currentProduct.images.forEach(image => {
+            allMedia.push({
+                type: 'image',
+                src: image
+            });
+        });
+    }
+    
+    // Добавляем видео ПЕРЕД или ПОСЛЕ изображений (как хотите)
+    if (currentProduct.videos && currentProduct.videos.length > 0) {
+        currentProduct.videos.forEach(video => {
+            allMedia.push({
+                type: 'video',
+                src: video.src,
+                caption: video.caption
+            });
+        });
+    }
+    
+    if (allMedia.length === 0) {
+        // Если нет ни фото ни видео
+        const productImage = document.getElementById('product-image');
+        productImage.src = 'default.jpg';
+        productImage.alt = currentProduct.name;
+        return;
+    }
+    
+    // Сохраняем все медиа для галереи
+    window.productGallery = allMedia;
+    
+    // Показываем первый элемент
+    showMedia(0);
     
     // Создаем миниатюры
     createThumbnails();
@@ -244,3 +278,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
