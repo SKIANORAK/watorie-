@@ -260,8 +260,7 @@ nav {
 .info-dropdown {
     margin-top: 40px;
     padding-top: 20px;
-    border-top: 1px solid #333;
-}
+    border-top: none;
 
 .info-dropdown-btn {
     background: none;
@@ -345,4 +344,5 @@ nav {
         align-self: flex-start;
     }
 }
+
 
