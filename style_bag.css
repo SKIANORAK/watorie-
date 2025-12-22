@@ -184,7 +184,7 @@ nav {
     text-align: center;
     width: auto; /* Не растягивать на всю ширину */
     min-width: 120px; /* Минимальная ширина */
-    margin-top: -10px;
+    
     opacity: 0.8;
 }
 
@@ -568,6 +568,7 @@ nav {
         font-size: 14px;
     }
 }
+
 
 
 
