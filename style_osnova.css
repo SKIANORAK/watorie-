@@ -63,61 +63,62 @@ nav {
     opacity: 0.7;
 }
 
-/* ========== СЕТКА ТОВАРОВ ========== */
+/* ========== СЕТКА ТОВАРОВ (КАК НА СТРАНИЦЕ ТОВАРА) ========== */
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 350px)); /* Карточки от 300 до 350px */
-    gap: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 50px;
     max-width: 1200px;
     margin: 50px auto;
     padding: 0 20px;
     flex: 1;
-    justify-content: center; /* Центрируем сетку */
-    justify-items: center; /* Центрируем карточки в ячейках */
 }
 
+/* ========== КАРТОЧКИ ТОВАРОВ (КАК НА СТРАНИЦЕ ТОВАРА) ========== */
 .product-card {
     background: #111;
-    border-radius: 12px; /* Больше скругление углов */
+    border-radius: 8px;
     overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s; /* Добавили тень в анимацию */
-    width: 100%; /* Занимает всю ширину ячейки сетки */
-    max-width: 320px; /* Ограничиваем максимальную ширину */
+    transition: transform 0.3s;
 }
 
 .product-card:hover {
-    transform: translateY(-8px); /* Сильнее поднимаем при наведении */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* Добавляем тень при наведении */
+    transform: translateY(-5px);
 }
 
+/* КАРТИНКА КАК НА СТРАНИЦЕ ТОВАРА (main-image) */
 .product-image {
     width: 100%;
-    height: 350px; /* УВЕЛИЧИЛИ высоту на 50px */
+    height: 500px; /* Высокая как на странице товара */
     overflow: hidden;
+    position: relative;
 }
 
 .product-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.4s ease; /* Немного медленнее зумирование */
+    background: #222;
+    transition: transform 0.3s;
 }
 
 .product-card:hover .product-image img {
-    transform: scale(1.07); /* Чуть больше зумирование */
+    transform: scale(1.05);
 }
 
+/* ТЕКСТ КАК НА СТРАНИЦЕ ТОВАРА */
 .product-title {
-    padding: 15px 15px 5px;
-    font-size: 18px;
+    padding: 20px 20px 8px;
+    font-size: 24px; /* Как h1 на странице товара (28px) но чуть меньше */
     font-weight: bold;
     color: #fff;
 }
 
 .product-price {
-    padding: 0 15px 15px;
+    padding: 0 20px 20px;
     color: #fff;
-    font-size: 16px;
+    font-size: 22px; /* Как product-price на странице товара (24px) но чуть меньше */
+    font-weight: bold;
 }
 
 .product-link {
@@ -126,11 +127,11 @@ nav {
     display: block;
 }
 
-/* ========== КНОПКИ +/- НА ГЛАВНОЙ ========== */
+/* ========== КНОПКИ ДОБАВЛЕНИЯ В КОРЗИНУ ========== */
 .add-to-cart-container {
     position: relative;
     height: 40px;
-    margin: 0 15px 15px;
+    margin: 0 20px 20px;
     overflow: hidden;
 }
 
@@ -138,7 +139,7 @@ nav {
     background: #fff;
     color: #000;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 20px;
     font-size: 14px;
     cursor: pointer;
     font-weight: bold;
@@ -331,22 +332,32 @@ nav {
     font-weight: 500;
 }
 
-/* ========== АДАПТИВНОСТЬ ========== */
+/* ========== АДАПТИВНОСТЬ КАК НА СТРАНИЦЕ ТОВАРА ========== */
 @media (max-width: 768px) {
+    /* СЕТКА КАК НА СТРАНИЦЕ ТОВАРА */
     .products-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 20px;
+        grid-template-columns: 1fr;
+        gap: 30px;
         margin: 30px auto;
+        padding: 0 15px;
     }
     
+    /* КАРТИНКА КАК НА СТРАНИЦЕ ТОВАРА (main-image) */
     .product-image {
-        height: 250px;
+        height: 400px; /* Такая же высота как на странице товара на мобильных */
     }
     
-    .collection-video-container {
-        max-width: 100%;
+    .product-title {
+        font-size: 22px;
+        padding: 15px 15px 5px;
     }
     
+    .product-price {
+        font-size: 20px;
+        padding: 0 15px 15px;
+    }
+    
+    /* КОЛЛЕКЦИЯ */
     .collection-video {
         height: 300px;
         border-radius: 4px;
@@ -356,11 +367,13 @@ nav {
         font-size: 24px;
     }
     
+    /* ПОДВАЛ */
     .footer-content {
         grid-template-columns: 1fr;
         gap: 30px;
     }
     
+    /* УВЕДОМЛЕНИЕ */
     .custom-alert {
         bottom: 10px;
         right: 10px;
@@ -371,17 +384,16 @@ nav {
 }
 
 @media (max-width: 480px) {
-    .products-grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
+    .product-image {
+        height: 350px;
     }
     
-    .collection-video {
-        height: 250px;
+    .product-title {
+        font-size: 20px;
     }
     
-    .collection-title {
-        font-size: 22px;
+    .product-price {
+        font-size: 18px;
     }
     
     .logo a {
@@ -391,6 +403,12 @@ nav {
     .nav-links a {
         font-size: 18px;
     }
+    
+    .collection-video {
+        height: 250px;
+    }
+    
+    .collection-title {
+        font-size: 22px;
+    }
 }
-
-
