@@ -66,45 +66,6 @@ nav {
     margin: 20px 0;
 }
 
-.cart-item {
-    display: grid;
-    grid-template-columns: 70px 1fr 100px;
-    gap: 20px;
-    align-items: start; /* ← ВАЖНО: выравнивание по верху */
-    padding: 25px 0;
-    border-bottom: 1px solid #333;
-}
-
-/* ИНФОРМАЦИЯ О ТОВАРЕ */
-.cart-item-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* ← Распределяем пространство */
-    min-height: 120px; /* ← Фиксированная высота */
-}
-
-.cart-item-name {
-    font-size: 16px;
-    font-weight: 500;
-    color: #fff;
-    margin-bottom: 5px;
-}
-
-/* ФИЛОСОФИЯ ТОВАРА (ПО ЦЕНТРУ) */
-.item-philosophy {
-    color: #777;
-    font-size: 12px;
-    font-style: italic;
-    line-height: 1.4;
-    text-align: center;
-    margin: 10px 0;
-    padding: 8px 0;
-    flex-grow: 1; /* ← Занимает всё доступное пространство */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-width: 250px;
-}
 .item-size {
     color: #aaa;
     font-size: 12px;
@@ -112,15 +73,20 @@ nav {
     margin-bottom: 10px;
 }
 
-/* КОНТРОЛЫ КОЛИЧЕСТВА */
+/* КОНТРОЛЫ */
 .quantity-controls {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-top: auto; /* ← Прижимаем к низу */
 }
-.cart-item:last-child {
-    border-bottom: none;
+
+/* ЦЕНА */
+.cart-item-total {
+    font-weight: bold;
+    color: #fff;
+    font-size: 16px;
+    text-align: right;
+    align-self: start;
 }
 
 /* МИНИАТЮРА ТОВАРА */
@@ -406,6 +372,7 @@ nav {
         align-self: flex-start;
     }
 }
+
 
 
 
