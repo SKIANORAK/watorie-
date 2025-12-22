@@ -109,28 +109,40 @@ function adjustCartQuantity(productId, size, change, button) {
         
         if (cart[existingItemIndex].quantity <= 0) {
             cart.splice(existingItemIndex, 1);
-            // Возвращаем обычную кнопку
+            
+            // ВОЗВРАЩАЕМ ОБЫЧНУЮ КНОПКУ
             const controls = button.closest('.quantity-controls-inline');
             const card = controls.closest('.product-card');
-            const addButton = card.querySelector('.add-to-cart');
+            const addToCartContainer = card.querySelector('.add-to-cart-container');
             
+            // Анимация исчезновения кнопок +/-
             controls.style.opacity = '0';
             controls.style.transform = 'translateX(20px)';
             
             setTimeout(() => {
                 controls.remove();
-                addButton.style.display = 'block';
-                addButton.style.opacity = '0';
-                addButton.style.transform = 'translateX(-20px)';
                 
+                // Создаем и вставляем новую кнопку "Добавить в корзину"
+                const newButton = document.createElement('button');
+                newButton.className = 'add-to-cart';
+                newButton.setAttribute('data-id', productId);
+                newButton.textContent = 'Добавить в корзину';
+                newButton.onclick = function(e) {
+                    addToCart(productId, 'M', e);
+                };
+                
+                addToCartContainer.appendChild(newButton);
+                
+                // Анимация появления кнопки
                 setTimeout(() => {
-                    addButton.style.transition = 'all 0.3s ease';
-                    addButton.style.opacity = '1';
-                    addButton.style.transform = 'translateX(0)';
-                }, 50);
+                    newButton.style.transition = 'all 0.3s ease';
+                    newButton.style.opacity = '1';
+                    newButton.style.transform = 'translateX(0)';
+                }, 10);
+                
             }, 300);
         } else {
-            // Обновляем счетчик
+            // Обновляем счетчик если количество > 0
             const quantitySpan = button.closest('.quantity-controls-inline').querySelector('.quantity-inline');
             if (quantitySpan) {
                 quantitySpan.textContent = cart[existingItemIndex].quantity;
@@ -189,4 +201,5 @@ document.addEventListener('DOMContentLoaded', function() {
     renderProducts();
     updateCartCounter();
 });
+
 
