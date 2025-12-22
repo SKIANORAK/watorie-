@@ -170,22 +170,22 @@ nav {
 
 /* Buttons */
 .clear-cart-btn {
-    background: #ff4444;
-    color: white;
-    border: none;
-    padding: 14px 28px;
-    cursor: pointer;
-    margin-top: 10px;
-    width: 100%;
-    font-size: 16px;
-    transition: background 0.3s;
+    background: none;
+    color: #ccc;
+    border: 1px solid #ff4444;
+    padding: 8px 15px;
+    font-size: 14px;
     border-radius: 4px;
-    font-family: inherit;
-    font-weight: 500;
+    cursor: pointer;
+    margin: 20px 0;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
 }
 
 .clear-cart-btn:hover {
-    background: #cc0000;
+    background: rgba(255, 68, 68, 0.1);
+    color: #ff4444;
 }
 
 .checkout-btn {
@@ -562,5 +562,6 @@ nav {
         font-size: 14px;
     }
 }
+
 
 
