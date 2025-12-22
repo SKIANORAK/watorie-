@@ -169,7 +169,7 @@ nav {
 }
 
 /* Buttons */
-/* КНОПКА ОЧИСТКИ КОРЗИНЫ */
+
 .clear-cart-btn {
     background: #000; /* Чёрный фон внутри */
     color: #fff; /* Красный текст */
@@ -184,6 +184,7 @@ nav {
     text-align: center;
     width: auto; /* Не растягивать на всю ширину */
     min-width: 120px; /* Минимальная ширина */
+    margin-top: -10px;
     opacity: 0.8;
 }
 
@@ -567,6 +568,7 @@ nav {
         font-size: 14px;
     }
 }
+
 
 
 
