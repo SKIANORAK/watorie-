@@ -112,16 +112,12 @@ nav {
     font-style: italic;
 }
 
-/* КОНТРОЛЫ КОЛИЧЕСТВА (ПОКАЗЫВАЮТСЯ ОТ 2+ ТОВАРОВ) */
+/* КОНТРОЛЫ КОЛИЧЕСТВА (ВСЕГДА ВИДНЫ) */
 .quantity-controls {
-    display: none; /* По умолчанию скрыто */
+    display: flex;
     align-items: center;
     gap: 10px;
     margin-top: 5px;
-}
-
-.cart-item.multiple .quantity-controls {
-    display: flex; /* Показываем только при 2+ товарах */
 }
 
 .quantity-btn {
@@ -150,24 +146,6 @@ nav {
     text-align: center;
 }
 
-/* КНОПКА УДАЛЕНИЯ */
-.remove-item {
-    background: transparent;
-    color: #ff4444;
-    border: 1px solid #ff4444;
-    padding: 6px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-    transition: all 0.3s;
-    align-self: flex-start;
-    margin-top: 8px;
-}
-
-.remove-item:hover {
-    background: rgba(255, 68, 68, 0.1);
-}
-
 /* СТОИМОСТЬ ТОВАРА */
 .cart-item-total {
     font-weight: bold;
@@ -183,11 +161,10 @@ nav {
     align-items: center;
     margin: 30px 0;
     padding: 25px 0;
-    border-top: 1px solid #333;
-    border-bottom: 1px solid #333;
+    border-top: 1px solid #333; /* ← ТОЛЬКО ОДНА ЛИНИЯ */
 }
 
-/* КНОПКА ОЧИСТКИ КОРЗИНЫ (ПОКАЗЫВАЕТСЯ ОТ 2+ ТОВАРОВ) */
+/* КНОПКА ОЧИСТКИ КОРЗИНЫ (ПОКАЗЫВАЕТСЯ ОТ 2+ ЕДИНИЦ ТОВАРА) */
 #clear-cart {
     background: #111;
     color: #fff;
@@ -202,7 +179,7 @@ nav {
 }
 
 #clear-cart.show {
-    display: inline-block; /* Показываем при 2+ товарах */
+    display: inline-block; /* Показываем при 2+ единицах товара */
 }
 
 #clear-cart:hover {
@@ -228,8 +205,6 @@ nav {
 /* ФОРМА ОФОРМЛЕНИЯ */
 #checkout-form {
     margin-top: 40px;
-    padding-top: 30px;
-    border-top: 1px solid #333;
 }
 
 #checkout-form h3 {
@@ -282,8 +257,8 @@ nav {
 /* ВЫПАДАЮЩИЙ БЛОК ИНФОРМАЦИИ */
 .info-dropdown {
     margin-top: 40px;
-    border-top: 1px solid #333;
     padding-top: 20px;
+    border-top: 1px solid #333;
 }
 
 .info-dropdown-btn {
@@ -334,6 +309,10 @@ nav {
     margin-bottom: 15px;
     padding-left: 10px;
     border-left: 2px solid #333;
+}
+
+.order-info p:last-child {
+    margin-bottom: 0;
 }
 
 /* АДАПТИВНОСТЬ */
