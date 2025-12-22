@@ -42,9 +42,9 @@ function renderCart() {
     // ✅ ПОКАЗЫВАТЬ КНОПКУ ТОЛЬКО ПРИ 2+ ТОВАРАХ
     if (clearCartBtn) {
         if (cart.length >= 2) {
-            clearCartBtn.style.display = 'block';
+            clearCartBtn.classList.add('show');
         } else {
-            clearCartBtn.style.display = 'none';
+            clearCartBtn.classList.remove('show');
         }
     }
     
@@ -265,6 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
 });
+
 
 
 
