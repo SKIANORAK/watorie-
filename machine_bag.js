@@ -25,18 +25,6 @@ function updateCartCounter() {
     }
 }
 
-// ФИЛОСОФИЯ ДЛЯ КАЖДОГО ТОВАРА
-function getItemPhilosophy(productName) {
-    const philosophies = {
-        'W-JEANS': 'Арт-объект в городской среде: 3 секунды света в темноте',
-        'W-SHIRT': 'Distressed — не износ, а заранее созданная память',
-        'CUSTOM': 'Индивидуальный пошив — диалог между идеей и материей',
-        'CUSTOM ORDER': 'Индивидуальный пошив — диалог между идеей и материей',
-        'REFLECTIVE HOODIE': 'Функциональный streetwear с элементами безопасности'
-    };
-    
-    return philosophies[productName] || 'Уникальная вещь ручной работы';
-}
 
 // ОТРИСОВКА КОРЗИНЫ С ФИЛОСОФИЕЙ
 function renderCart() {
@@ -277,5 +265,6 @@ document.addEventListener('DOMContentLoaded', function() {
         infoBtn.addEventListener('click', toggleInfo);
     }
 });
+
 
 
