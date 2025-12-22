@@ -265,7 +265,7 @@ nav {
     background: none;
     color: #ccc;
     border: none;
-    padding: 15px 0;
+    padding: 6px 0;
     width: 100%;
     text-align: left;
     font-size: 16px;
@@ -366,4 +366,5 @@ nav {
     opacity: 1;
     transform: translateY(0);
 }
+
 
