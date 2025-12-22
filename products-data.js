@@ -1,5 +1,5 @@
 // products-data.js - ТОЛЬКО ДАННЫЕ ТОВАРОВ
-const products = [
+const products = [ 
     {
         id: 1,
         name: "W-JEANS",
@@ -73,3 +73,4 @@ const products = [
         Это процесс, где заказчик становится соавтором, а вещь — физическим продолжением мысли."`
     }
 ];
+
