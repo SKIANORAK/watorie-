@@ -60,21 +60,21 @@ function renderCart() {
         const itemEl = document.createElement('div');
         itemEl.className = 'cart-item';
         itemEl.innerHTML = `
-            <div class="cart-item-image">
-                <img src="${productImage}" alt="${item.name}">
-            </div>
-            <div class="cart-item-info">
-                <h3>${item.name}</h3>
-                <div class="quantity-controls">
-                    <button class="quantity-btn minus" onclick="updateQuantity(${index}, -1)">-</button>
-                    <span class="quantity">${item.quantity}</span>
-                    <button class="quantity-btn plus" onclick="updateQuantity(${index}, 1)">+</button>
-                </div>
-                ${item.size ? `<p>Размер: ${item.size}</p>` : ''}
-                <button class="remove-item" onclick="removeFromCart(${index})">🗑️ Удалить</button>
-            </div>
-            <div class="cart-item-total">${itemTotal} ₽</div>
-        `;
+    <div class="cart-item-image">
+        <img src="${productImage}" alt="${item.name}">
+    </div>
+    <div class="cart-item-info">
+        <h3>${item.name}</h3>
+        <p class="item-size">Размер: ${item.size}</p>
+        <div class="quantity-controls">
+            <button class="quantity-btn minus" onclick="updateQuantity(${index}, -1)">-</button>
+            <span class="quantity">${item.quantity}</span>
+            <button class="quantity-btn plus" onclick="updateQuantity(${index}, 1)">+</button>
+        </div>
+        <button class="remove-item" onclick="removeFromCart(${index})">🗑️ Удалить</button>
+    </div>
+    <div class="cart-item-total">${itemTotal} ₽</div>
+`;
         cartItems.appendChild(itemEl);
     });
     
@@ -265,6 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
 });
+
 
 
 
