@@ -66,27 +66,17 @@ nav {
     margin: 20px 0;
 }
 
-.item-size {
-    color: #aaa;
-    font-size: 12px;
-    font-style: italic;
-    margin-bottom: 10px;
-}
-
-/* КОНТРОЛЫ */
-.quantity-controls {
-    display: flex;
+.cart-item {
+    display: grid;
+    grid-template-columns: 70px 1fr 100px;
+    gap: 20px;
     align-items: center;
-    gap: 10px;
+    padding: 25px 0;
+    border-bottom: 1px solid #333;
 }
 
-/* ЦЕНА */
-.cart-item-total {
-    font-weight: bold;
-    color: #fff;
-    font-size: 16px;
-    text-align: right;
-    align-self: start;
+.cart-item:last-child {
+    border-bottom: none;
 }
 
 /* МИНИАТЮРА ТОВАРА */
@@ -103,7 +93,7 @@ nav {
     border: 1px solid #333;
 }
 
-/* ИНФОРМАЦИЯ О ТОВАРЕ */
+/* ИНФОРМАЦИЯ О ТОВАРЕ (БЕЗ ФИЛОСОФИИ) */
 .cart-item-info {
     display: flex;
     flex-direction: column;
@@ -116,33 +106,13 @@ nav {
     color: #fff;
 }
 
-/* МЕТА-ИНФОРМАЦИЯ ТОВАРА В ОДНУ СТРОКУ */
-.item-meta {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin: 8px 0 12px;
-    flex-wrap: wrap;
-}
-
 .item-size {
     color: #888;
     font-size: 12px;
-}
-
-.item-separator {
-    color: #555;
-    font-size: 10px;
-}
-
-.item-philosophy {
-    color: #666;
-    font-size: 11px;
     font-style: italic;
-    max-width: 150px;
 }
 
-/* КОНТРОЛЫ КОЛИЧЕСТВА (ВСЕГДА ВИДНЫ) */
+/* КОНТРОЛЫ КОЛИЧЕСТВА */
 .quantity-controls {
     display: flex;
     align-items: center;
@@ -190,8 +160,8 @@ nav {
     justify-content: space-between;
     align-items: center;
     margin: 30px 0;
-    padding: 7px 0;
-    border-top: 1px solid #333; /* ← ТОЛЬКО ОДНА ЛИНИЯ */
+    padding: 25px 0;
+    border-top: 1px solid #333;
 }
 
 /* КНОПКА ОЧИСТКИ КОРЗИНЫ (ПОКАЗЫВАЕТСЯ ОТ 2+ ЕДИНИЦ ТОВАРА) */
@@ -235,8 +205,6 @@ nav {
 /* ФОРМА ОФОРМЛЕНИЯ */
 #checkout-form {
     margin-top: 40px;
-    padding-top: 0; /* Убираем отступ сверху */
-    border-top: none; /* Убираем линию */
 }
 
 #checkout-form h3 {
@@ -289,6 +257,9 @@ nav {
 /* ВЫПАДАЮЩИЙ БЛОК ИНФОРМАЦИИ */
 .info-dropdown {
     margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+}
 
 .info-dropdown-btn {
     background: none;
@@ -321,7 +292,7 @@ nav {
     background: #111;
     border-radius: 8px;
     margin-top: 10px;
-    
+    border: 1px solid #333;
 }
 
 .info-dropdown-content.show {
@@ -372,11 +343,3 @@ nav {
         align-self: flex-start;
     }
 }
-
-
-
-
-
-
-
-
