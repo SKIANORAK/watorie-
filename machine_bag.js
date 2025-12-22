@@ -25,7 +25,7 @@ function updateCartCounter() {
     }
 }
 
-// ОТРИСОВКА КОРЗИНЫ С НОВОЙ ЛОГИКОЙ
+// ОТРИСОВКА КОРЗИНЫ
 function renderCart() {
     console.log('=== ОТРИСОВКА КОРЗИНЫ ===');
     
@@ -34,7 +34,9 @@ function renderCart() {
     const clearCartBtn = document.getElementById('clear-cart');
     const cart = getCart();
     
-    console.log('Товаров в корзине:', cart.length);
+    // Считаем общее количество единиц товара
+    const totalItemsCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    console.log('Всего единиц товара:', totalItemsCount);
     
     if (cart.length === 0) {
         cartItems.innerHTML = '<p class="empty-cart">Корзина пуста</p>';
@@ -53,24 +55,20 @@ function renderCart() {
         
         const productImage = item.image || 'default-image.jpg';
         
-        // Определяем, нужно ли показывать кнопки +/-
-        const showControls = cart.length >= 2;
-        
         const itemEl = document.createElement('div');
-        itemEl.className = `cart-item ${showControls ? 'multiple' : ''}`;
+        itemEl.className = 'cart-item';
         itemEl.innerHTML = `
             <div class="cart-item-image">
                 <img src="${productImage}" alt="${item.name}">
             </div>
             <div class="cart-item-info">
                 <div class="cart-item-name">${item.name}</div>
-                ${cart.length >= 2 ? `<div class="item-size">Размер: ${item.size || 'M'}</div>` : ''}
+                <div class="item-size">Размер: ${item.size || 'M'}</div>
                 <div class="quantity-controls">
                     <button class="quantity-btn minus" onclick="updateQuantity(${index}, -1)">-</button>
                     <span class="quantity">${item.quantity}</span>
                     <button class="quantity-btn plus" onclick="updateQuantity(${index}, 1)">+</button>
                 </div>
-                <button class="remove-item" onclick="removeFromCart(${index})">🗑️ Удалить</button>
             </div>
             <div class="cart-item-total">${itemTotal} ₽</div>
         `;
@@ -81,14 +79,14 @@ function renderCart() {
     cartTotal.textContent = `Итого: ${total} ₽`;
     cartTotal.innerHTML += `<div class="delivery-note">*Доставка рассчитывается отдельно</div>`;
     
-    // УПРАВЛЕНИЕ КНОПКОЙ ОЧИСТКИ (ПОКАЗЫВАТЬ ОТ 2+ ТОВАРОВ)
+    // УПРАВЛЕНИЕ КНОПКОЙ ОЧИСТКИ (ПОКАЗЫВАТЬ ОТ 2+ ЕДИНИЦ ТОВАРА)
     if (clearCartBtn) {
-        if (cart.length >= 2) {
+        if (totalItemsCount >= 2) { // ← ВАЖНО: 2+ единиц товара, а не позиций
             clearCartBtn.classList.add('show');
-            console.log('Показали кнопку очистки (2+ товара)');
+            console.log('Показали кнопку очистки (2+ единиц товара)');
         } else {
             clearCartBtn.classList.remove('show');
-            console.log('Скрыли кнопку очистки (меньше 2 товаров)');
+            console.log('Скрыли кнопку очистки (меньше 2 единиц товара)');
         }
     }
 }
@@ -100,26 +98,11 @@ function updateQuantity(index, change) {
     if (index >= 0 && index < cart.length) {
         cart[index].quantity += change;
         
+        // ЕСЛИ КОЛИЧЕСТВО СТАЛО 0 - АВТОМАТИЧЕСКИ УДАЛЯЕМ
         if (cart[index].quantity <= 0) {
-            if (confirm(`Удалить "${cart[index].name}" из корзины?`)) {
-                cart.splice(index, 1);
-            } else {
-                cart[index].quantity -= change;
-            }
+            cart.splice(index, 1);
         }
         
-        saveCart(cart);
-        renderCart();
-        updateCartCounter();
-    }
-}
-
-// УДАЛЕНИЕ ТОВАРА ИЗ КОРЗИНЫ
-function removeFromCart(index) {
-    let cart = getCart();
-    
-    if (confirm(`Удалить "${cart[index].name}" из корзины?`)) {
-        cart.splice(index, 1);
         saveCart(cart);
         renderCart();
         updateCartCounter();
