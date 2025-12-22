@@ -169,23 +169,28 @@ nav {
 }
 
 /* Buttons */
+/* КНОПКА ОЧИСТКИ КОРЗИНЫ */
 .clear-cart-btn {
-    background: none;
-    color: #ccc;
-    border: 1px solid #ff4444;
-    padding: 8px 15px;
-    font-size: 14px;
-    border-radius: 4px;
+    background: #000; /* Чёрный фон внутри */
+    color: #fff; /* Красный текст */
+    border: 1px solid #8B0000; /* Красный контур */
+    padding: 6px 12px; /* Маленький размер */
+    font-size: 13px; /* Маленький текст */
+    border-radius: 3px; /* Слегка скруглённые углы */
     cursor: pointer;
-    margin: 20px 0;
+    margin: 15px 0;
     transition: all 0.3s ease;
     display: inline-block;
     text-align: center;
+    width: auto; /* Не растягивать на всю ширину */
+    min-width: 120px; /* Минимальная ширина */
+    opacity: 0.8;
 }
 
 .clear-cart-btn:hover {
-    background: rgba(255, 68, 68, 0.1);
-    color: #ff4444;
+   border-color: #ff4444; /* Ярче красный при наведении */
+    opacity: 1; /* Полная видимость */
+    color: #ff6666; /* Ярче красный текст */
 }
 
 .checkout-btn {
@@ -562,6 +567,7 @@ nav {
         font-size: 14px;
     }
 }
+
 
 
 
