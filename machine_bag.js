@@ -110,13 +110,49 @@ function updateQuantity(index, change) {
 }
 
 // ОЧИСТКА КОРЗИНЫ
+function removeFromCart(index) {
+    let cart = getCart();
+    const itemName = cart[index].name;
+    
+    cart.splice(index, 1);
+    saveCart(cart);
+    renderCart();
+    updateCartCounter();
+    
+    // Кастомное уведомление
+    showCustomAlert('🗑️ Товар удалён');
+}
+
+// ОЧИСТКА КОРЗИНЫ (БЕЗ CONFIRM)
 function clearCart() {
-    if (confirm('Вы уверены, что хотите полностью очистить корзину?')) {
-        saveCart([]);
-        renderCart();
-        updateCartCounter();
-        alert('Корзина очищена!');
+    saveCart([]);
+    renderCart();
+    updateCartCounter();
+    showCustomAlert('🔄 Корзина очищена');
+}
+
+// Добавь функцию кастомного уведомления в machine_bag.js:
+function showCustomAlert(message) {
+    let alert = document.getElementById('custom-alert');
+    if (!alert) {
+        alert = document.createElement('div');
+        alert.id = 'custom-alert';
+        alert.className = 'custom-alert';
+        alert.innerHTML = `
+            <div class="alert-content">
+                <span class="alert-text">${message}</span>
+            </div>
+        `;
+        document.body.appendChild(alert);
+    } else {
+        document.querySelector('.alert-text').textContent = message;
     }
+    
+    alert.classList.add('show');
+    
+    setTimeout(() => {
+        alert.classList.remove('show');
+    }, 1500);
 }
 
 // ОТПРАВКА ЗАКАЗА В TELEGRAM
@@ -259,3 +295,4 @@ document.addEventListener('DOMContentLoaded', function() {
         infoBtn.addEventListener('click', toggleInfo);
     }
 });
+
