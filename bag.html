@@ -16,34 +16,29 @@
             <div class="logo">
                 <a href="index.html" class="logo-link">6 months</a>
             </div>
-            
+            <div class="nav-links">
+                <a href="bag.html">Корзина (<span id="cart-count">0</span>)</a>
+            </div>
         </nav>
     </header>
 
     <div class="cart-page">
         <h1>Корзина</h1>
         
-        <!-- Контейнер для товаров -->
+        <!-- КОНТЕЙНЕР ТОВАРОВ -->
         <div id="cart-items">
-            <!-- Товары будут добавляться динамически -->
+            <!-- Товары добавляются через JS -->
         </div>
         
-       <!-- Блок с итоговой суммой и кнопкой очистки -->
-<div class="cart-total-container">
-    <div class="cart-total-left">
-        <button id="clear-cart" class="clear-cart-btn">Очистить корзину</button>
-    </div>
-    <div class="cart-total-right">
-        <div id="cart-total">
-            <!-- Сумма будет здесь -->
+        <!-- БЛОК С ИТОГОМ И КНОПКОЙ ОЧИСТКИ -->
+        <div class="cart-summary-section">
+            <button id="clear-cart">Очистить корзину</button>
+            <div id="cart-total">
+                <!-- Сумма добавляется через JS -->
+            </div>
         </div>
-    </div>
-</div>
         
-       
-        
-        
-        <!-- Форма оформления заказа -->
+        <!-- ФОРМА ОФОРМЛЕНИЯ -->
         <form id="checkout-form">
             <h3>Контактные данные</h3>
             <input type="text" id="contact" placeholder="Ваш Telegram @username или телефон" required>
@@ -54,9 +49,9 @@
             </button>
         </form>
         
-        <!-- Выпадающий блок информации -->
+        <!-- ВЫПАДАЮЩИЙ БЛОК ИНФОРМАЦИИ -->
         <div class="info-dropdown">
-            <button class="info-dropdown-btn" >
+            <button class="info-dropdown-btn">
                 <span>Информация о заказе</span>
                 <span class="arrow">▼</span>
             </button>
@@ -76,9 +71,3 @@
     <script src="machine_bag.js"></script>
 </body>
 </html>
-
-
-
-
-
-
