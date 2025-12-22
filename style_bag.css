@@ -291,7 +291,7 @@ nav {
     background: #111;
     border-radius: 8px;
     margin-top: 10px;
-    border: 1px solid #333;
+    
 }
 
 .info-dropdown-content.show {
@@ -342,6 +342,7 @@ nav {
         align-self: flex-start;
     }
 }
+
 
 
 
