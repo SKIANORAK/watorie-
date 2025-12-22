@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>6 months</title>
     <link rel="stylesheet" href="style_osnova.css">
-    <link rel="stylesheet" href="style_fonts.css">
     <link rel="icon" type="image/x-icon" href="favicon-16x16.png">
     <link rel="icon" type="image/png" href="favicon-32x32.png">
     <link rel="apple-touch-icon" href="favicon_io/apple-touch-icon.png">
@@ -23,49 +22,59 @@
     </header>
 
     <main>
-        <div class="products-grid">
+        <!-- КАРТОЧКИ ТОВАРОВ -->
+        <div class="products-grid" id="products-grid">
             <!-- Товары будут добавляться через JS -->
         </div>
+
+        <!-- НОВАЯ КОЛЛЕКЦИЯ И ВИДЕО -->
+        <div class="collection-section">
+            <h2 class="collection-title">Новая коллекция</h2>
+            <div class="collection-video">
+                <video autoplay muted loop playsinline>
+                    <source src="1210.mp4" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video>
+                <div class="video-overlay"></div>
+            </div>
+        </div>
     </main>
+
     <!-- ПОДВАЛ -->
-<footer class="main-footer">
-    <div class="footer-content">
-        <!-- Соцсети -->
-        <div class="footer-section">
-            <h3>Мы в соцсетях</h3>
-            <p><a href="https://www.tiktok.com/@6ixmonth.s" target="_blank">TikTok канал</a></p>
-            <p><a href="https://t.me/highallowww" target="_blank">Telegram канал</a></p>
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Мы в соцсетях</h3>
+                <p><a href="https://www.tiktok.com/@6ixmonth.s" target="_blank">TikTok канал</a></p>
+                <p><a href="https://t.me/highallowww" target="_blank">Telegram канал</a></p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Для заказов</h3>
+                <p>Telegram: @SKIANORAK</p>
+                <p>Ответ в течение 15 минут</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>О магазине</h3>
+                <p><a href="about.html">О нас</a></p>
+            </div>
         </div>
         
-        <!-- Контакты для заказов -->
-        <div class="footer-section">
-            <h3>Для заказов</h3>
-            <p>Telegram: @SKIANORAK</p>
-            <p>Ответ в течение 15 минут</p>
-        </div>
-        
-        <!-- О магазине -->
-        <div class="footer-section">
-            <h3>О магазине</h3>
-            <p><a href="about.html">О нас</a></p>
-        </div>
-    </div>
-    
-    <!-- Товары будут добавляться через JS <div class="footer-bottom">
+          <!-- Товары будут добавляться через JS <div class="footer-bottom">
         #<p>&copy; 2025 6 months. Все права защищены.</p>
         #<p>Одежда ручной работы</p>
     #</div><!-- Товары будут добавляться через JS -->
-</footer>
     </footer>
 
+    <!-- КАСТОМНОЕ УВЕДОМЛЕНИЕ -->
+    <div id="custom-alert" class="custom-alert">
+        <div class="alert-content">
+            <span class="alert-text"></span>
+        </div>
+    </div>
 
     <script src="products-data.js"></script>
     <script src="machine_osnova.js"></script>
 </body>
 </html>
-
-
-
-
-
-
