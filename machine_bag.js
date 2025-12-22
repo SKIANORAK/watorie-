@@ -25,7 +25,20 @@ function updateCartCounter() {
     }
 }
 
-// ОТРИСОВКА КОРЗИНЫ
+// ФИЛОСОФИЯ ДЛЯ КАЖДОГО ТОВАРА
+function getItemPhilosophy(productName) {
+    const philosophies = {
+        'W-JEANS': 'Арт-объект в городской среде: 3 секунды света в темноте',
+        'W-SHIRT': 'Distressed — не износ, а заранее созданная память',
+        'CUSTOM': 'Индивидуальный пошив — диалог между идеей и материей',
+        'CUSTOM ORDER': 'Индивидуальный пошив — диалог между идеей и материей',
+        'REFLECTIVE HOODIE': 'Функциональный streetwear с элементами безопасности'
+    };
+    
+    return philosophies[productName] || 'Уникальная вещь ручной работы';
+}
+
+// ОТРИСОВКА КОРЗИНЫ С ФИЛОСОФИЕЙ
 function renderCart() {
     console.log('=== ОТРИСОВКА КОРЗИНЫ ===');
     
@@ -54,6 +67,7 @@ function renderCart() {
         total += itemTotal;
         
         const productImage = item.image || 'default-image.jpg';
+        const philosophy = getItemPhilosophy(item.name);
         
         const itemEl = document.createElement('div');
         itemEl.className = 'cart-item';
@@ -63,7 +77,10 @@ function renderCart() {
             </div>
             <div class="cart-item-info">
                 <div class="cart-item-name">${item.name}</div>
-                <div class="item-size">Размер: ${item.size || 'M'}</div>
+                <div class="item-details">
+                    <div class="item-size">Размер: ${item.size || 'M'}</div>
+                    <div class="item-philosophy">${philosophy}</div>
+                </div>
                 <div class="quantity-controls">
                     <button class="quantity-btn minus" onclick="updateQuantity(${index}, -1)">-</button>
                     <span class="quantity">${item.quantity}</span>
@@ -81,7 +98,7 @@ function renderCart() {
     
     // УПРАВЛЕНИЕ КНОПКОЙ ОЧИСТКИ (ПОКАЗЫВАТЬ ОТ 2+ ЕДИНИЦ ТОВАРА)
     if (clearCartBtn) {
-        if (totalItemsCount >= 2) { // ← ВАЖНО: 2+ единиц товара, а не позиций
+        if (totalItemsCount >= 2) {
             clearCartBtn.classList.add('show');
             console.log('Показали кнопку очистки (2+ единиц товара)');
         } else {
