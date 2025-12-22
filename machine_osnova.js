@@ -1,6 +1,6 @@
 // ФУНКЦИИ ДЛЯ РАБОТЫ С КОРЗИНОЙ
 function getCart() {
-    return JSON.parse(localStorage.getItem('cart_guest')) || [];
+    return JSON.parse(localStorage.getItem('cart_guest')) || []; 
 }
 
 function saveCart(cart) {
@@ -189,3 +189,4 @@ document.addEventListener('DOMContentLoaded', function() {
     renderProducts();
     updateCartCounter();
 });
+
