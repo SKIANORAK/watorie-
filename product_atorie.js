@@ -1,27 +1,15 @@
-// product_atorie.js - ИСПРАВЛЕННЫЙ КОД
+// product_atorie.js - с видео в галерее
 let currentProduct = null;
-let currentImageIndex = 0;
+let currentMediaIndex = 0;
+let productMedia = []; // Массив всех медиа: фото + видео
 
 // Функции для работы с корзиной
-function getCurrentUser() {
-    return JSON.parse(localStorage.getItem('currentUser')) || null;
-}
-
 function getCart() {
-    const user = getCurrentUser();
-    if (user) {
-        return JSON.parse(localStorage.getItem(`cart_${user.id}`)) || [];
-    }
     return JSON.parse(localStorage.getItem('cart_guest')) || [];
 }
 
 function saveCart(cart) {
-    const user = getCurrentUser();
-    if (user) {
-        localStorage.setItem(`cart_${user.id}`, JSON.stringify(cart));
-    } else {
-        localStorage.setItem('cart_guest', JSON.stringify(cart));
-    }
+    localStorage.setItem('cart_guest', JSON.stringify(cart));
 }
 
 // Кастомное уведомление
@@ -67,15 +55,13 @@ function loadProduct() {
     document.getElementById('product-price').textContent = currentProduct.price + ' ₽';
     document.getElementById('product-description').textContent = currentProduct.description;
     
-    // ЗАГРУЖАЕМ ФИЛОСОФИЮ
+    // Философия
     const philosophyElement = document.getElementById('product-philosophy');
     if (philosophyElement && currentProduct.philosophy) {
         philosophyElement.innerHTML = currentProduct.philosophy;
-        // ПОКАЗЫВАЕМ КОНТЕЙНЕР С ФИЛОСОФИЕЙ
-        document.getElementById('philosophy-container').style.display = 'block';
     }
     
-    // ЗАГРУЖАЕМ ХАРАКТЕРИСТИКИ (О ТОВАРЕ)
+    // Характеристики
     const featuresList = document.getElementById('product-features');
     featuresList.innerHTML = '';
     if (currentProduct.features && currentProduct.features.length > 0) {
@@ -86,76 +72,124 @@ function loadProduct() {
         });
     }
     
-    // Инициализируем галерею
+    // Инициализируем галерею (фото + видео)
     initGallery();
-    
-    // ЗАГРУЖАЕМ ВИДЕО КАК ОТДЕЛЬНЫЙ БЛОК (если нужно)
-    // loadVideos(); // Раскомментируйте если хотите видео отдельно
     
     document.title = currentProduct.name + ' - 6 months';
 }
 
-// Инициализация галереи (ПРОСТАЯ И РАБОЧАЯ)
+// Инициализация галереи с фото и видео
 function initGallery() {
     if (!currentProduct) return;
     
-    // Проверяем есть ли изображения
-    if (!currentProduct.images || currentProduct.images.length === 0) {
-        console.error('Нет изображений для товара:', currentProduct.name);
-        const productImage = document.getElementById('product-image');
-        productImage.src = 'default.jpg';
-        productImage.alt = currentProduct.name;
+    productMedia = [];
+    
+    // 1. Добавляем ВСЕ изображения
+    if (currentProduct.images && currentProduct.images.length > 0) {
+        currentProduct.images.forEach(image => {
+            productMedia.push({
+                type: 'image',
+                src: image
+            });
+        });
+    }
+    
+    // 2. Добавляем ВСЕ видео ПОСЛЕ изображений
+    if (currentProduct.videos && currentProduct.videos.length > 0) {
+        currentProduct.videos.forEach(video => {
+            productMedia.push({
+                type: 'video',
+                src: video.src,
+                caption: video.caption || ''
+            });
+        });
+    }
+    
+    if (productMedia.length === 0) {
+        console.error('Нет ни фото ни видео для товара');
         return;
     }
     
-    console.log('Изображения товара:', currentProduct.images);
+    console.log('Всего медиа в галерее:', productMedia.length);
     
-    // Показываем первую картинку
-    showImage(0);
+    // Показываем первый элемент
+    showMedia(0);
     
     // Создаем миниатюры
     createThumbnails();
 }
 
-// Показать изображение по индексу
-function showImage(index) {
-    if (!currentProduct.images || !currentProduct.images[index]) {
-        console.error('Изображение не найдено по индексу:', index);
-        return;
+// Показать медиа (фото или видео) по индексу
+function showMedia(index) {
+    if (!productMedia[index]) return;
+    
+    const media = productMedia[index];
+    const container = document.querySelector('.main-image-container');
+    const mainImage = document.getElementById('product-image');
+    
+    // Очищаем контейнер
+    const existingVideo = container.querySelector('video');
+    if (existingVideo) {
+        existingVideo.remove();
     }
     
-    console.log('Показываем изображение:', currentProduct.images[index]);
-    
-    const productImage = document.getElementById('product-image');
-    productImage.src = currentProduct.images[index];
-    productImage.alt = currentProduct.name + ' - фото ' + (index + 1);
-    
-    // ПРЕДЗАГРУЖАЕМ СЛЕДУЮЩЕЕ ИЗОБРАЖЕНИЕ (чтобы не лагало)
-    const nextIndex = (index + 1) % currentProduct.images.length;
-    if (currentProduct.images[nextIndex]) {
-        const img = new Image();
-        img.src = currentProduct.images[nextIndex];
+    if (media.type === 'image') {
+        // Показываем изображение
+        mainImage.style.display = 'block';
+        mainImage.src = media.src;
+        mainImage.alt = currentProduct.name + ' - фото ' + (index + 1);
+    } 
+    else if (media.type === 'video') {
+        // Скрываем основное изображение
+        mainImage.style.display = 'none';
+        
+        // Создаем видео элемент
+        const video = document.createElement('video');
+        video.src = media.src;
+        video.controls = false; // БЕЗ КОНТРОЛОВ - как гифка
+        video.muted = true;
+        video.autoplay = true; // АВТОЗАПУСК
+        video.loop = true; // ЗАЦИКЛИВАНИЕ
+        video.playsInline = true;
+        video.className = 'main-video';
+        
+        // Настройки для автовоспроизведения
+        video.setAttribute('webkit-playsinline', '');
+        video.setAttribute('playsinline', '');
+        
+        container.appendChild(video);
+        
+        // Пытаемся запустить видео
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(e => {
+                console.log('Автозапуск видео заблокирован:', e);
+                // Если автозапуск заблокирован, показываем кнопку play
+                video.controls = true;
+            });
+        }
     }
     
-    currentImageIndex = index;
+    currentMediaIndex = index;
     
     // Обновляем активную миниатюру
     updateActiveThumbnail();
 }
 
-// Смена изображения
+// Смена медиа
 function changeImage(direction) {
-    if (!currentProduct.images || currentProduct.images.length === 0) return;
+    if (productMedia.length === 0) return;
     
-    const newIndex = currentImageIndex + direction;
+    let newIndex = currentMediaIndex + direction;
     
-    if (newIndex >= 0 && newIndex < currentProduct.images.length) {
-        showImage(newIndex);
-    } else if (newIndex < 0) {
-        showImage(currentProduct.images.length - 1);
-    } else {
-        showImage(0);
+    // Циклическая прокрутка
+    if (newIndex < 0) {
+        newIndex = productMedia.length - 1;
+    } else if (newIndex >= productMedia.length) {
+        newIndex = 0;
     }
+    
+    showMedia(newIndex);
 }
 
 // Создание миниатюр
@@ -165,29 +199,63 @@ function createThumbnails() {
     
     thumbnailsContainer.innerHTML = '';
     
-    if (!currentProduct.images || currentProduct.images.length === 0) return;
+    if (productMedia.length === 0) return;
     
-    currentProduct.images.forEach((image, index) => {
-        // ПРЕДЗАГРУЖАЕМ МИНИАТЮРЫ
-        const img = new Image();
-        img.src = image;
+    productMedia.forEach((media, index) => {
+        const thumbnailWrapper = document.createElement('div');
+        thumbnailWrapper.className = 'thumbnail-wrapper';
         
-        const thumbnail = document.createElement('img');
-        thumbnail.src = image;
-        thumbnail.alt = 'Миниатюра ' + (index + 1);
-        thumbnail.className = 'thumbnail';
-        if (index === 0) thumbnail.classList.add('active');
+        if (media.type === 'image') {
+            // Миниатюра для фото
+            const img = document.createElement('img');
+            img.src = media.src;
+            img.alt = 'Миниатюра ' + (index + 1);
+            img.className = 'thumbnail';
+            if (index === 0) img.classList.add('active');
+            
+            img.addEventListener('click', () => showMedia(index));
+            thumbnailWrapper.appendChild(img);
+            
+            // Добавляем иконку фото
+            const icon = document.createElement('div');
+            icon.className = 'thumbnail-icon photo';
+            icon.textContent = '📷';
+            thumbnailWrapper.appendChild(icon);
+            
+        } 
+        else if (media.type === 'video') {
+            // Миниатюра для видео
+            const video = document.createElement('video');
+            video.src = media.src;
+            video.muted = true;
+            video.preload = 'metadata';
+            video.className = 'thumbnail-video';
+            if (index === 0) video.classList.add('active');
+            
+            // Устанавливаем первый кадр как постер
+            video.addEventListener('loadeddata', function() {
+                this.currentTime = 0.1;
+            });
+            
+            video.addEventListener('click', () => showMedia(index));
+            thumbnailWrapper.appendChild(video);
+            
+            // Добавляем иконку видео
+            const icon = document.createElement('div');
+            icon.className = 'thumbnail-icon video';
+            icon.textContent = '▶️';
+            thumbnailWrapper.appendChild(icon);
+        }
         
-        thumbnail.addEventListener('click', () => showImage(index));
-        thumbnailsContainer.appendChild(thumbnail);
+        thumbnailsContainer.appendChild(thumbnailWrapper);
     });
 }
 
 // Обновление активной миниатюры
 function updateActiveThumbnail() {
-    const thumbnails = document.querySelectorAll('.thumbnail');
+    const thumbnails = document.querySelectorAll('.thumbnail, .thumbnail-video');
     thumbnails.forEach((thumb, index) => {
-        thumb.classList.toggle('active', index === currentImageIndex);
+        thumb.classList.toggle('active', index === currentMediaIndex);
     });
 }
 
@@ -206,7 +274,6 @@ function addToCart(productId, size = 'M') {
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
-        // Сохраняем первое изображение товара
         const productImage = product.images ? product.images[0] : 'default.jpg';
         
         cart.push({
@@ -220,10 +287,7 @@ function addToCart(productId, size = 'M') {
     }
     
     saveCart(cart);
-    
-    // Кастомное уведомление
     showCustomAlert('Товар "' + product.name + '" добавлен в корзину!');
-    
     updateCartCounter();
 }
 
