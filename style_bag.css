@@ -3,7 +3,12 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+.item-size {
+    color: #888;
+    font-size: 13px;
+    margin: 5px 0 10px;
+    font-style: italic;
+}
 body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     background: #000;
@@ -568,6 +573,7 @@ nav {
         font-size: 14px;
     }
 }
+
 
 
 
