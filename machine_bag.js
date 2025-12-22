@@ -25,8 +25,7 @@ function updateCartCounter() {
     }
 }
 
-
-// ОТРИСОВКА КОРЗИНЫ С ФИЛОСОФИЕЙ
+// ОТРИСОВКА КОРЗИНЫ (БЕЗ ФИЛОСОФИИ)
 function renderCart() {
     console.log('=== ОТРИСОВКА КОРЗИНЫ ===');
     
@@ -55,29 +54,24 @@ function renderCart() {
         total += itemTotal;
         
         const productImage = item.image || 'default-image.jpg';
-        const philosophy = getItemPhilosophy(item.name);
         
-// Внутри forEach:
-const itemEl = document.createElement('div');
-itemEl.className = 'cart-item';
-itemEl.innerHTML = `
-    <div class="cart-item-image">
-        <img src="${productImage}" alt="${item.name}">
-    </div>
-    
-    <div class="cart-item-middle">
-        <div class="cart-item-name">${item.name}</div>
-        <div class="item-philosophy">${getItemPhilosophy(item.name)}</div>
-        <div class="item-size">Размер: ${item.size || 'M'}</div>
-        <div class="quantity-controls">
-            <button class="quantity-btn minus" onclick="updateQuantity(${index}, -1)">-</button>
-            <span class="quantity">${item.quantity}</span>
-            <button class="quantity-btn plus" onclick="updateQuantity(${index}, 1)">+</button>
-        </div>
-    </div>
-    
-    <div class="cart-item-total">${itemTotal} ₽</div>
-`;
+        const itemEl = document.createElement('div');
+        itemEl.className = 'cart-item';
+        itemEl.innerHTML = `
+            <div class="cart-item-image">
+                <img src="${productImage}" alt="${item.name}">
+            </div>
+            <div class="cart-item-info">
+                <div class="cart-item-name">${item.name}</div>
+                <div class="item-size">Размер: ${item.size || 'M'}</div>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus" onclick="updateQuantity(${index}, -1)">-</button>
+                    <span class="quantity">${item.quantity}</span>
+                    <button class="quantity-btn plus" onclick="updateQuantity(${index}, 1)">+</button>
+                </div>
+            </div>
+            <div class="cart-item-total">${itemTotal} ₽</div>
+        `;
         cartItems.appendChild(itemEl);
     });
     
@@ -265,6 +259,3 @@ document.addEventListener('DOMContentLoaded', function() {
         infoBtn.addEventListener('click', toggleInfo);
     }
 });
-
-
-
