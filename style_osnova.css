@@ -66,12 +66,14 @@ nav {
 /* ========== СЕТКА ТОВАРОВ ========== */
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 350px)); /* Карточки от 300 до 350px */
+    gap: 40px;
     max-width: 1200px;
     margin: 50px auto;
     padding: 0 20px;
     flex: 1;
+    justify-content: center; /* Центрируем сетку */
+    justify-items: center; /* Центрируем карточки в ячейках */
 }
 
 .product-card {
@@ -387,3 +389,4 @@ nav {
         font-size: 18px;
     }
 }
+
