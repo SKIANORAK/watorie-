@@ -130,6 +130,79 @@
     height: 100%;
     object-fit: cover;
 }
+/* СЕКЦИЯ НОВОЙ КОЛЛЕКЦИИ */
+.collection-section {
+    max-width: 1200px;
+    margin: 80px auto 40px;
+    padding: 0 20px;
+}
+
+.collection-title {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #fff;
+    font-weight: 400;
+    font-family: 'Monotype Corsiva', cursive; /* ← ТАКОЙ ЖЕ ШРИФТ КАК У ЛОГОТИПА */
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+.collection-video-container {
+    width: 100%;
+    max-width: 600px; /* ← МЕНЬШИЙ РАЗМЕР */
+    margin: 0 auto;
+}
+
+.collection-video {
+    position: relative;
+    width: 100%;
+    height: 400px; /* ← НОРМАЛЬНАЯ ВЫСОТА */
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+}
+
+.collection-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* УБИРАЕМ БЕЛУЮ ПОЛОСКУ ИЛИ ГРАНИЦЫ */
+.collection-video {
+    border: none; /* ← УБИРАЕМ ГРАНИЦЫ ЕСЛИ ЕСТЬ */
+}
+
+.video-overlay {
+    display: none; /* ← УБИРАЕМ ОВЕРЛЕЙ ЕСЛИ НЕ НУЖЕН */
+}
+
+/* АДАПТИВНОСТЬ ДЛЯ ВИДЕО */
+@media (max-width: 768px) {
+    .collection-video-container {
+        max-width: 100%;
+    }
+    
+    .collection-video {
+        height: 300px;
+        border-radius: 4px;
+    }
+    
+    .collection-title {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .collection-video {
+        height: 250px;
+    }
+    
+    .collection-title {
+        font-size: 22px;
+    }
+}
 
 .video-overlay {
     position: absolute;
@@ -228,3 +301,4 @@
         gap: 30px;
     }
 }
+
