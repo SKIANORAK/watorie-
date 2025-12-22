@@ -32,8 +32,6 @@ function renderCart() {
     const clearCartBtn = document.getElementById('clear-cart');
     const cart = getCart();
     
-    console.log('Корзина для отображения:', cart);
-    
     if (cart.length === 0) {
         cartItems.innerHTML = '<p class="empty-cart">Корзина пуста</p>';
         cartTotal.textContent = '';
@@ -41,7 +39,14 @@ function renderCart() {
         return;
     }
     
-    if (clearCartBtn) clearCartBtn.style.display = 'block';
+    // ✅ ПОКАЗЫВАТЬ КНОПКУ ТОЛЬКО ПРИ 2+ ТОВАРАХ
+    if (clearCartBtn) {
+        if (cart.length >= 2) {
+            clearCartBtn.style.display = 'block';
+        } else {
+            clearCartBtn.style.display = 'none';
+        }
+    }
     
     let total = 0;
     cartItems.innerHTML = '';
@@ -50,23 +55,23 @@ function renderCart() {
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
         
-        const itemEl = document.createElement('div');
-        itemEl.className = 'cart-item';
-        
-        // Добавляем миниатюру
         const productImage = item.image || 'default-image.jpg';
         
+        const itemEl = document.createElement('div');
+        itemEl.className = 'cart-item';
         itemEl.innerHTML = `
             <div class="cart-item-image">
-                <img src="${productImage}" alt="${item.name}" 
-                     onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iIzIyMiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj7ihKIgSW1hZ2U8L3RleHQ+PC9zdmc+'" 
-                     style="width:60px;height:60px;object-fit:cover;border-radius:4px;">
+                <img src="${productImage}" alt="${item.name}">
             </div>
             <div class="cart-item-info">
                 <h3>${item.name}</h3>
-                <p>${item.price} ₽ × ${item.quantity}</p>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus" onclick="updateQuantity(${index}, -1)">-</button>
+                    <span class="quantity">${item.quantity}</span>
+                    <button class="quantity-btn plus" onclick="updateQuantity(${index}, 1)">+</button>
+                </div>
                 ${item.size ? `<p>Размер: ${item.size}</p>` : ''}
-                <button class="remove-item" onclick="removeFromCart(${index})">Удалить</button>
+                <button class="remove-item" onclick="removeFromCart(${index})">🗑️ Удалить</button>
             </div>
             <div class="cart-item-total">${itemTotal} ₽</div>
         `;
@@ -76,7 +81,6 @@ function renderCart() {
     cartTotal.textContent = `Итого: ${total} ₽`;
     cartTotal.innerHTML += `<div class="delivery-note">*Доставка рассчитывается отдельно</div>`;
 }
-
 // Удаление товара из корзины
 function removeFromCart(index) {
     let cart = getCart();
@@ -261,6 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
 });
+
 
 
 
