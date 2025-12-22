@@ -66,7 +66,7 @@ function renderCart() {
                 <h3>${item.name}</h3>
                 <p>${item.price} ₽ × ${item.quantity}</p>
                 ${item.size ? `<p>Размер: ${item.size}</p>` : ''}
-                <button class="remove-item" onclick="removeFromCart(${index})">🗑️ Удалить</button>
+                <button class="remove-item" onclick="removeFromCart(${index})">Удалить</button>
             </div>
             <div class="cart-item-total">${itemTotal} ₽</div>
         `;
@@ -261,6 +261,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
 });
+
 
 
 
