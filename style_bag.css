@@ -205,6 +205,8 @@ nav {
 /* ФОРМА ОФОРМЛЕНИЯ */
 #checkout-form {
     margin-top: 40px;
+    padding-top: 0; /* Убираем отступ сверху */
+    border-top: none; /* Убираем линию */
 }
 
 #checkout-form h3 {
@@ -343,3 +345,4 @@ nav {
         align-self: flex-start;
     }
 }
+
