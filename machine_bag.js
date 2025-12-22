@@ -1,20 +1,20 @@
 // НАСТРОЙКИ TELEGRAM
 const TELEGRAM_CONFIG = {
     botToken: '7969220641:AAGCTj-G2kGav5g4QqR2yx2fV6KUpSByKWQ',
-    chatId: '2038132122' // ЗАМЕНИТЬ на реальный Chat ID
+    chatId: '2038132122'
 };
 
-// Получение корзины (только гостевая)
+// ПОЛУЧЕНИЕ КОРЗИНЫ
 function getCart() {
     return JSON.parse(localStorage.getItem('cart_guest')) || [];
 }
 
-// Сохранение корзины (только гостевая)
+// СОХРАНЕНИЕ КОРЗИНЫ
 function saveCart(cart) {
     localStorage.setItem('cart_guest', JSON.stringify(cart));
 }
 
-// Обновление счетчика корзины
+// ОБНОВЛЕНИЕ СЧЕТЧИКА КОРЗИНЫ
 function updateCartCounter() {
     const cart = getCart();
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -25,29 +25,25 @@ function updateCartCounter() {
     }
 }
 
-// Функция отрисовки корзины
+// ОТРИСОВКА КОРЗИНЫ С НОВОЙ ЛОГИКОЙ
 function renderCart() {
+    console.log('=== ОТРИСОВКА КОРЗИНЫ ===');
+    
     const cartItems = document.getElementById('cart-items');
     const cartTotal = document.getElementById('cart-total');
     const clearCartBtn = document.getElementById('clear-cart');
     const cart = getCart();
     
+    console.log('Товаров в корзине:', cart.length);
+    
     if (cart.length === 0) {
         cartItems.innerHTML = '<p class="empty-cart">Корзина пуста</p>';
         cartTotal.textContent = '';
-        if (clearCartBtn) clearCartBtn.style.display = 'none';
+        if (clearCartBtn) clearCartBtn.classList.remove('show');
         return;
     }
     
-    // ✅ ПОКАЗЫВАТЬ КНОПКУ ТОЛЬКО ПРИ 2+ ТОВАРАХ
-    if (clearCartBtn) {
-        if (cart.length >= 2) {
-            clearCartBtn.classList.add('show');
-        } else {
-            clearCartBtn.classList.remove('show');
-        }
-    }
-    
+    // ОСНОВНОЙ РЕНДЕРИНГ
     let total = 0;
     cartItems.innerHTML = '';
     
@@ -57,31 +53,68 @@ function renderCart() {
         
         const productImage = item.image || 'default-image.jpg';
         
+        // Определяем, нужно ли показывать кнопки +/-
+        const showControls = cart.length >= 2;
+        
         const itemEl = document.createElement('div');
-        itemEl.className = 'cart-item';
+        itemEl.className = `cart-item ${showControls ? 'multiple' : ''}`;
         itemEl.innerHTML = `
-    <div class="cart-item-image">
-        <img src="${productImage}" alt="${item.name}">
-    </div>
-    <div class="cart-item-info">
-        <h3>${item.name}</h3>
-        <p class="item-size">Размер: ${item.size}</p>
-        <div class="quantity-controls">
-            <button class="quantity-btn minus" onclick="updateQuantity(${index}, -1)">-</button>
-            <span class="quantity">${item.quantity}</span>
-            <button class="quantity-btn plus" onclick="updateQuantity(${index}, 1)">+</button>
-        </div>
-        <button class="remove-item" onclick="removeFromCart(${index})">🗑️ Удалить</button>
-    </div>
-    <div class="cart-item-total">${itemTotal} ₽</div>
-`;
+            <div class="cart-item-image">
+                <img src="${productImage}" alt="${item.name}">
+            </div>
+            <div class="cart-item-info">
+                <div class="cart-item-name">${item.name}</div>
+                ${cart.length >= 2 ? `<div class="item-size">Размер: ${item.size || 'M'}</div>` : ''}
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus" onclick="updateQuantity(${index}, -1)">-</button>
+                    <span class="quantity">${item.quantity}</span>
+                    <button class="quantity-btn plus" onclick="updateQuantity(${index}, 1)">+</button>
+                </div>
+                <button class="remove-item" onclick="removeFromCart(${index})">🗑️ Удалить</button>
+            </div>
+            <div class="cart-item-total">${itemTotal} ₽</div>
+        `;
         cartItems.appendChild(itemEl);
     });
     
+    // ОБНОВЛЯЕМ ИТОГ
     cartTotal.textContent = `Итого: ${total} ₽`;
     cartTotal.innerHTML += `<div class="delivery-note">*Доставка рассчитывается отдельно</div>`;
+    
+    // УПРАВЛЕНИЕ КНОПКОЙ ОЧИСТКИ (ПОКАЗЫВАТЬ ОТ 2+ ТОВАРОВ)
+    if (clearCartBtn) {
+        if (cart.length >= 2) {
+            clearCartBtn.classList.add('show');
+            console.log('Показали кнопку очистки (2+ товара)');
+        } else {
+            clearCartBtn.classList.remove('show');
+            console.log('Скрыли кнопку очистки (меньше 2 товаров)');
+        }
+    }
 }
-// Удаление товара из корзины
+
+// ИЗМЕНЕНИЕ КОЛИЧЕСТВА ТОВАРА
+function updateQuantity(index, change) {
+    let cart = getCart();
+    
+    if (index >= 0 && index < cart.length) {
+        cart[index].quantity += change;
+        
+        if (cart[index].quantity <= 0) {
+            if (confirm(`Удалить "${cart[index].name}" из корзины?`)) {
+                cart.splice(index, 1);
+            } else {
+                cart[index].quantity -= change;
+            }
+        }
+        
+        saveCart(cart);
+        renderCart();
+        updateCartCounter();
+    }
+}
+
+// УДАЛЕНИЕ ТОВАРА ИЗ КОРЗИНЫ
 function removeFromCart(index) {
     let cart = getCart();
     
@@ -93,24 +126,23 @@ function removeFromCart(index) {
     }
 }
 
-// Функция очистки корзины
+// ОЧИСТКА КОРЗИНЫ
 function clearCart() {
     if (confirm('Вы уверены, что хотите полностью очистить корзину?')) {
-        saveCart([]); // Сохраняем пустую корзину
+        saveCart([]);
         renderCart();
         updateCartCounter();
         alert('Корзина очищена!');
     }
 }
 
-// Функция отправки заказа в Telegram
+// ОТПРАВКА ЗАКАЗА В TELEGRAM
 async function sendOrderToTelegram(orderData) {
-    console.log('📤 Отправка заказа в Telegram...');
-    console.log('Данные заказа:', orderData);
+    console.log('Отправка заказа в Telegram...');
     
-    let message = ` *НОВЫЙ ЗАКАЗ* 🛒\n\n`;
-    message += ` *Дата:* ${new Date().toLocaleString('ru-RU')}\n`;
-    message += ` *Контакт:* ${orderData.contact}\n\n`;
+    let message = `🛒 *НОВЫЙ ЗАКАЗ*\n\n`;
+    message += `📅 *Дата:* ${new Date().toLocaleString('ru-RU')}\n`;
+    message += `📞 *Контакт:* ${orderData.contact}\n\n`;
     
     message += `*Состав заказа:*\n`;
     orderData.items.forEach((item, index) => {
@@ -120,21 +152,14 @@ async function sendOrderToTelegram(orderData) {
         message += `   Цена: ${item.price} ₽ × ${item.quantity} = ${item.price * item.quantity} ₽\n\n`;
     });
     
-    message += ` *Итого:* ${orderData.total} ₽\n`;
-    message += ` *Доставка:* рассчитывается отдельно\n\n`;
-    message += ` *Время заказа:* ${new Date().toLocaleTimeString('ru-RU')}`;
-
-    console.log('Сообщение для Telegram:', message);
-
+    message += `💰 *Итого:* ${orderData.total} ₽\n`;
+    message += `🚚 *Доставка:* рассчитывается отдельно\n\n`;
+    message += `⏰ *Время заказа:* ${new Date().toLocaleTimeString('ru-RU')}`;
+    
     try {
-        const TELEGRAM_URL = `https://api.telegram.org/bot${TELEGRAM_CONFIG.botToken}/sendMessage`;
-        console.log('URL запроса:', TELEGRAM_URL);
-        
-        const response = await fetch(TELEGRAM_URL, {
+        const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_CONFIG.botToken}/sendMessage`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 chat_id: TELEGRAM_CONFIG.chatId,
                 text: message,
@@ -143,36 +168,26 @@ async function sendOrderToTelegram(orderData) {
         });
         
         const result = await response.json();
-        console.log('Ответ от Telegram:', result);
         
         if (result.ok) {
-            console.log('✅ Сообщение отправлено успешно!');
+            console.log('✅ Заказ отправлен!');
             return true;
         } else {
-            console.log('❌ Ошибка Telegram:', result.description);
-            
-            // Покажем конкретную ошибку пользователю
-            if (result.description.includes('chat not found')) {
-                alert('❌ Ошибка: Chat ID не найден. Проверь настройки бота.');
-            } else if (result.description.includes('Not Found')) {
-                alert('❌ Ошибка: Неверный токен бота.');
-            } else {
-                alert(`❌ Ошибка Telegram: ${result.description}`);
-            }
+            alert(`❌ Ошибка Telegram: ${result.description}`);
             return false;
         }
         
     } catch (error) {
         console.error('❌ Ошибка сети:', error);
-        alert('❌ Ошибка сети. Проверь интернет соединение.');
+        alert('❌ Ошибка сети');
         return false;
     }
 }
 
-// Валидация формы
+// ВАЛИДАЦИЯ ФОРМЫ
 function validateForm(contact) {
     if (!contact.trim()) {
-        alert('Пожалуйста, введите ваш Telegram или телефон');
+        alert('Введите ваш Telegram или телефон');
         return false;
     }
     
@@ -184,7 +199,7 @@ function validateForm(contact) {
     return true;
 }
 
-// Функция для открытия/закрытия информации
+// ПЕРЕКЛЮЧЕНИЕ ИНФОРМАЦИИ
 function toggleInfo() {
     const content = document.getElementById('info-content');
     const arrow = document.querySelector('.arrow');
@@ -192,23 +207,22 @@ function toggleInfo() {
     if (content && arrow) {
         const isOpen = content.classList.toggle('show');
         arrow.textContent = isOpen ? '▲' : '▼';
-        console.log('Блок информации', isOpen ? 'открыт' : 'закрыт');
     }
 }
 
-// Инициализация корзины
+// ИНИЦИАЛИЗАЦИЯ
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Инициализация корзины...');
     renderCart();
     updateCartCounter();
     
-    // Обработчик для кнопки очистки
+    // КНОПКА ОЧИСТКИ
     const clearCartBtn = document.getElementById('clear-cart');
     if (clearCartBtn) {
         clearCartBtn.addEventListener('click', clearCart);
     }
     
-    // Обработчик для формы заказа
+    // ФОРМА ЗАКАЗА
     const checkoutForm = document.getElementById('checkout-form');
     if (checkoutForm) {
         checkoutForm.addEventListener('submit', async function(e) {
@@ -218,11 +232,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const contact = document.getElementById('contact').value.trim();
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             
-            // Валидация
             if (!validateForm(contact)) return;
             
             if (cart.length === 0) {
-                alert('Корзина пуста! Добавьте товары перед оформлением заказа.');
+                alert('Корзина пуста!');
                 return;
             }
             
@@ -233,7 +246,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 timestamp: new Date().toISOString()
             };
             
-            // Показываем загрузку
             const submitBtn = this.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
             submitBtn.textContent = 'Отправка...';
@@ -243,14 +255,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 const success = await sendOrderToTelegram(orderData);
                 
                 if (success) {
-                    alert('✅ Заказ оформлен! Я свяжусь с вами в Telegram для уточнения деталей в течение 15 минут.');
-                    saveCart([]); // Очищаем корзину после успешного заказа
+                    alert('✅ Заказ оформлен! Свяжусь с вами в Telegram.');
+                    saveCart([]);
                     window.location.href = 'index.html';
                 } else {
-                    alert('❌ Ошибка при отправке заказа. Пожалуйста, напишите мне напрямую в Telegram.');
+                    alert('❌ Ошибка при отправке. Напишите @SKIANORAK');
                 }
             } catch (error) {
-                alert('❌ Произошла ошибка. Попробуйте еще раз или свяжитесь со мной напрямую.');
+                alert('❌ Произошла ошибка');
             } finally {
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
@@ -258,17 +270,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Обработчик для кнопки информации
+    // КНОПКА ИНФОРМАЦИИ
     const infoBtn = document.querySelector('.info-dropdown-btn');
     if (infoBtn) {
         infoBtn.addEventListener('click', toggleInfo);
     }
-    
 });
-
-
-
-
-
-
-
