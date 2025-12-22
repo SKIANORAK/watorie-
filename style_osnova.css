@@ -1,38 +1,5 @@
 /* КАСТОМНОЕ УВЕДОМЛЕНИЕ */
-.custom-alert {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(0, 0, 0, 0.95);
-    color: #fff;
-    padding: 12px 24px;
-    border-radius: 8px;
-    border: 1px solid #333;
-    z-index: 1000;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s ease;
-    pointer-events: none;
-    font-size: 14px;
-    max-width: 300px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
 
-.custom-alert.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.alert-content {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.alert-text {
-    font-size: 14px;
-    font-weight: 500;
-}
 
 /* КНОПКИ +/- НА ГЛАВНОЙ */
 .add-to-cart-container {
@@ -301,4 +268,5 @@
         gap: 30px;
     }
 }
+
 
