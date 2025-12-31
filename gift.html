@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подарки - 6 months</title>
+    <link rel="stylesheet" href="style_osnova.css">
+    <link rel="stylesheet" href="style_fonts.css">
+    <link rel="icon" type="image/x-icon" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" href="favicon-32x32.png">
+    <link rel="apple-touch-icon" href="favicon_io/apple-touch-icon.png">
+    <style>
+        .gift-content {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 0 20px;
+            color: #fff;
+            line-height: 1.8;
+        }
+        
+        .gift-text {
+            font-size: 18px;
+            white-space: pre-line;
+            background: #111;
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .back-link:hover {
+            background: #fff;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html" style="color: inherit; text-decoration: none;">6 months</a>
+            </div>
+            <div class="nav-links">
+                <a href="bag.html">Корзина (<span id="cart-count">0</span>)</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="gift-content">
+            <div class="gift-text">
+ладно ладно наверное уже хватит посмотри на втором этаже в корридоре где то ну вот кароче да
+            </div>
+            <a href="index.html" class="back-link">Назад на главную</a>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Мы в соцсетях</h3>
+                <p><a href="https://www.tiktok.com/@6ixmonth.s" target="_blank">TikTok канал</a></p>
+                <p><a href="https://t.me/highallowww" target="_blank">Telegram канал</a></p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Для заказов</h3>
+                <p>Telegram: @SKIANORAK</p>
+                <p>Ответ в течение 15 минут</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>О магазине</h3>
+                <p><a href="about.html">О нас</a></p>
+                <p><a href="gift.html" style="color: #ff6b6b; font-weight: bold; text-decoration: none;">
+                    <i class="fas fa-gift"></i> Подарки
+                </a></p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 6 months. Все права защищены.</p>
+            <p>Одежда ручной работы</p>
+        </div>
+    </footer>
+
+    <script>
+        // Обновляем счетчик корзины
+        document.addEventListener('DOMContentLoaded', function() {
+            const cart = JSON.parse(localStorage.getItem('cart_guest')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            const cartCounter = document.getElementById('cart-count');
+            if (cartCounter) {
+                cartCounter.textContent = totalItems;
+            }
+        });
+    </script>
+</body>
+</html>
